@@ -36,6 +36,16 @@ export default function ReportsPage() {
 
   useEffect(() => {
     fetchReportData();
+
+    // Listen to custom update event
+    if (typeof window !== 'undefined') {
+      window.addEventListener('transaction-updated', fetchReportData);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('transaction-updated', fetchReportData);
+      }
+    };
   }, []);
 
   // Pre-configured Range dates

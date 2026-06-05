@@ -43,6 +43,16 @@ export default function TransactionsPage() {
 
   useEffect(() => {
     fetchTransactions();
+
+    // Listen to custom update event
+    if (typeof window !== 'undefined') {
+      window.addEventListener('transaction-updated', fetchTransactions);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('transaction-updated', fetchTransactions);
+      }
+    };
   }, []);
 
   const handleDelete = async (id: string) => {

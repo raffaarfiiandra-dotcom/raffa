@@ -7,6 +7,14 @@ import { Category, Transaction } from '@/lib/db/types';
 import { autoCategorize } from '@/lib/ai-engine';
 import { LucideIcon } from './ui/LucideIcon';
 
+const getLocalDateString = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 interface TransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -29,6 +37,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const [receiptBase64, setReceiptBase64] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [aiSuggesting, setAiSuggesting] = useState(false);
+  const [isCategoryManuallySelected, setIsCategoryManuallySelected] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -46,22 +55,35 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setCategoryId(editTransaction.category_id || '');
       setDate(editTransaction.date);
       setReceiptBase64(editTransaction.receipt_url || '');
+      setIsCategoryManuallySelected(true);
     } else {
       setAmount('');
       setDescription('');
       setType('expense');
       setCategoryId('');
-      setDate(new Date().toISOString().split('T')[0]);
+      setDate(getLocalDateString());
       setReceiptBase64('');
+      setIsCategoryManuallySelected(false);
     }
   }, [editTransaction, isOpen]);
 
-  // AI Auto-categorization when description changes
+  // Reset category if it doesn't match selected type (income vs expense)
+  useEffect(() => {
+    if (categories.length > 0 && categoryId) {
+      const selectedCat = categories.find(c => c.id === categoryId);
+      if (selectedCat && selectedCat.type !== type) {
+        setCategoryId('');
+        setIsCategoryManuallySelected(false);
+      }
+    }
+  }, [type, categories, categoryId]);
+
+  // AI Auto-categorization when description changes (only if category hasn't been manually chosen)
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setDescription(val);
 
-    if (val.trim().length > 2 && categories.length > 0) {
+    if (!isCategoryManuallySelected && val.trim().length > 2 && categories.length > 0) {
       setAiSuggesting(true);
       // Run AI categorization matching
       const suggestedId = autoCategorize(val, categories);
@@ -189,7 +211,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Kategori</label>
             <select
               value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
+              onChange={(e) => {
+                setCategoryId(e.target.value);
+                setIsCategoryManuallySelected(!!e.target.value);
+              }}
               required
               className="w-full px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all text-slate-700 text-sm cursor-pointer"
             >
