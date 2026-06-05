@@ -160,10 +160,10 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
           <div className="hidden md:block leading-none text-left">
-            <p className="font-semibold text-sm text-slate-800">
+            <p className="font-semibold text-sm text-slate-800 truncate max-w-[120px] md:max-w-[180px] block">
               {userProfile?.full_name || 'Elite User'}
             </p>
-            <p className="text-[10px] text-slate-400 mt-0.5">
+            <p className="text-[10px] text-slate-400 mt-0.5 truncate max-w-[120px] md:max-w-[180px] block">
               {userProfile?.email || 'user@wealthmanager.com'}
             </p>
           </div>

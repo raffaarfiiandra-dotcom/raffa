@@ -132,7 +132,7 @@ export default function DashboardPage() {
         {/* Net Balance */}
         <div className="premium-card p-6 flex items-center justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-150">
           <div className="space-y-2 z-10">
-            <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-widest">Total Saldo (Kekayaan Bersih)</span>
+            <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-wider">Total Saldo (Kekayaan Bersih)</span>
             <h3 className="text-2xl font-bold">
               Rp {netBalance.toLocaleString('id-ID')}
             </h3>
@@ -147,35 +147,35 @@ export default function DashboardPage() {
         </div>
 
         {/* Income Card */}
-        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-100">
+        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-200/80">
           <div className="space-y-2">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Total Pemasukan</span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pemasukan</span>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full leading-none">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-100/50 px-2 py-0.5 rounded-full leading-none">
               <LucideIcon name="TrendingUp" size={10} />
               Pemasukan Bulan Ini
             </span>
           </div>
-          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+          <div className="p-3 bg-emerald-100/50 text-emerald-700 rounded-xl">
             <LucideIcon name="ArrowDownLeft" size={26} />
           </div>
         </div>
 
         {/* Expense Card */}
-        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-100">
+        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-200/80">
           <div className="space-y-2">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Total Pengeluaran</span>
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pengeluaran</span>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full leading-none">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-700 bg-rose-100/50 px-2 py-0.5 rounded-full leading-none">
               <LucideIcon name="TrendingDown" size={10} />
               Pengeluaran Terkumpul
             </span>
           </div>
-          <div className="p-3 bg-rose-50 text-rose-600 rounded-xl">
+          <div className="p-3 bg-rose-100/50 text-rose-700 rounded-xl">
             <LucideIcon name="ArrowUpRight" size={26} />
           </div>
         </div>

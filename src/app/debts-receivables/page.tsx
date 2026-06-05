@@ -156,45 +156,45 @@ export default function DebtsReceivablesPage() {
       {/* 3 Metric Card Summary (Matching exact screenshots) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Hutang */}
-        <div className="premium-card p-6 bg-white border-slate-100 flex items-center justify-between">
+        <div className="premium-card p-6 bg-white border-slate-200/80 flex items-center justify-between">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full uppercase leading-none">
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-100/50 px-2 py-0.5 rounded-full uppercase leading-none">
               Kewajiban
             </span>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Total Hutang</p>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Hutang</p>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalDebt.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3.5 bg-rose-50 text-rose-600 rounded-2xl">
+          <div className="p-3.5 bg-rose-100/50 text-rose-700 rounded-2xl">
             <LucideIcon name="ArrowDown" size={24} />
           </div>
         </div>
 
         {/* Total Piutang */}
-        <div className="premium-card p-6 bg-white border-slate-100 flex items-center justify-between">
+        <div className="premium-card p-6 bg-white border-slate-200/80 flex items-center justify-between">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase leading-none">
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-100/50 px-2 py-0.5 rounded-full uppercase leading-none">
               Aset Berjalan
             </span>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Total Piutang</p>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Piutang</p>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalReceivable.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3.5 bg-emerald-50 text-emerald-600 rounded-2xl">
+          <div className="p-3.5 bg-emerald-100/50 text-emerald-700 rounded-2xl">
             <LucideIcon name="ArrowUp" size={24} />
           </div>
         </div>
 
         {/* Selisih Bersih */}
-        <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/20 to-indigo-100/10 border-indigo-100 flex items-center justify-between">
+        <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/20 to-indigo-100/10 border-indigo-200/80 flex items-center justify-between">
           <div className="space-y-2">
-            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-widest">Selisih Bersih (Piutang - Hutang)</p>
+            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">Selisih Bersih (Piutang - Hutang)</p>
             <h3 className="text-2xl font-bold text-indigo-950">
               Rp {netDiff.toLocaleString('id-ID')}
             </h3>
-            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${netDiff >= 0 ? 'text-emerald-700 bg-emerald-50' : 'text-rose-700 bg-rose-50'}`}>
+            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${netDiff >= 0 ? 'text-emerald-700 bg-emerald-100/50' : 'text-rose-700 bg-rose-100/50'}`}>
               <LucideIcon name={netDiff >= 0 ? 'CheckCircle2' : 'AlertCircle'} size={10} />
               {netDiff >= 0 ? 'Posisi Keuangan Positif' : 'Posisi Keuangan Negatif'}
             </span>

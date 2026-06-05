@@ -135,8 +135,8 @@ export default function AssetsPage() {
             Rp {totalAssets.toLocaleString('id-ID')}
           </h2>
           <div className="flex items-center gap-2 mt-1.5">
-            <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full leading-none">
-              <LucideIcon name="TrendingUp" size={8} />
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-700 bg-emerald-100/50 px-2 py-0.5 rounded-full leading-none">
+              <LucideIcon name="TrendingUp" size={10} />
               +12.5% YoY
             </span>
             <span className="text-[10px] text-slate-400 font-semibold uppercase">Pembaruan terakhir: Hari ini, 09:41</span>

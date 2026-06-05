@@ -10,12 +10,14 @@ interface SidebarProps {
   isOpen: boolean;
   onClose?: () => void;
   onAddTransactionClick?: () => void;
+  onSupportClick?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
   isOpen, 
   onClose,
-  onAddTransactionClick 
+  onAddTransactionClick,
+  onSupportClick
 }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -110,14 +112,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Footer menu */}
         <div className="p-4 border-t border-slate-50 space-y-1">
-          <Link
-            href="/settings"
-            onClick={handleNavClick}
-            className="flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium text-[14px] text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all duration-150"
+          <button
+            onClick={() => {
+              if (onSupportClick) onSupportClick();
+              if (onClose) onClose();
+            }}
+            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium text-[14px] text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all duration-150 text-left cursor-pointer"
           >
             <LucideIcon name="HelpCircle" className="text-slate-400" size={20} />
             <span>Support</span>
-          </Link>
+          </button>
           <button
             onClick={handleSignOut}
             className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium text-[14px] text-rose-600 hover:bg-rose-50 hover:text-rose-700 transition-all duration-150 text-left cursor-pointer"

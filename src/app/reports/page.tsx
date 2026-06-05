@@ -295,38 +295,38 @@ export default function ReportsPage() {
 
       {/* 3 Metric Card summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-100">
+        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pemasukan Periode Ini</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pemasukan Periode Ini</span>
             <h3 className="text-xl font-bold text-emerald-600">
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+          <div className="p-3 bg-emerald-100/50 text-emerald-700 rounded-xl">
             <LucideIcon name="ArrowDownLeft" size={22} />
           </div>
         </div>
 
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-100">
+        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pengeluaran Periode Ini</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pengeluaran Periode Ini</span>
             <h3 className="text-xl font-bold text-rose-500">
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3 bg-rose-50 text-rose-500 rounded-xl">
+          <div className="p-3 bg-rose-100/50 text-rose-700 rounded-xl">
             <LucideIcon name="ArrowUpRight" size={22} />
           </div>
         </div>
 
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-100">
+        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Arus Kas Bersih (Net)</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Arus Kas Bersih (Net)</span>
             <h3 className={`text-xl font-bold ${cashflow >= 0 ? 'text-indigo-600' : 'text-rose-600'}`}>
               Rp {cashflow.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className={`p-3 rounded-xl ${cashflow >= 0 ? 'bg-indigo-50 text-indigo-600' : 'bg-rose-50 text-rose-600'}`}>
+          <div className={`p-3 rounded-xl ${cashflow >= 0 ? 'bg-indigo-100/50 text-indigo-700' : 'bg-rose-100/50 text-rose-700'}`}>
             <LucideIcon name={cashflow >= 0 ? 'TrendingUp' : 'TrendingDown'} size={22} />
           </div>
         </div>
@@ -388,7 +388,7 @@ export default function ReportsPage() {
             {/* PDF Card */}
             <div 
               onClick={handleExportPDF}
-              className="p-4 bg-slate-50/50 hover:bg-indigo-50/20 border border-slate-100 hover:border-indigo-200 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
+              className="p-4 bg-slate-50/50 hover:bg-indigo-50/20 border border-slate-200/80 hover:border-indigo-300 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
             >
               <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:bg-indigo-100 transition-colors">
                 <LucideIcon name="FileText" size={24} />
@@ -402,7 +402,7 @@ export default function ReportsPage() {
             {/* Excel Card */}
             <div 
               onClick={handleExportExcel}
-              className="p-4 bg-slate-50/50 hover:bg-emerald-50/20 border border-slate-100 hover:border-emerald-200 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
+              className="p-4 bg-slate-50/50 hover:bg-emerald-50/20 border border-slate-200/80 hover:border-emerald-300 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
             >
               <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl group-hover:bg-emerald-100 transition-colors">
                 <LucideIcon name="FileSpreadsheet" size={24} />
@@ -416,7 +416,7 @@ export default function ReportsPage() {
             {/* CSV Card */}
             <div 
               onClick={handleExportCSV}
-              className="p-4 bg-slate-50/50 hover:bg-amber-50/20 border border-slate-100 hover:border-amber-200 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
+              className="p-4 bg-slate-50/50 hover:bg-amber-50/20 border border-slate-200/80 hover:border-amber-300 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
             >
               <div className="p-3 bg-amber-50 text-amber-600 rounded-xl group-hover:bg-amber-100 transition-colors">
                 <LucideIcon name="FileCode" size={24} />
@@ -430,7 +430,7 @@ export default function ReportsPage() {
             {/* JSON Card */}
             <div 
               onClick={handleExportJSON}
-              className="p-4 bg-slate-50/50 hover:bg-slate-100 border border-slate-100 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
+              className="p-4 bg-slate-50/50 hover:bg-slate-100 border border-slate-200/80 hover:border-slate-300 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
             >
               <div className="p-3 bg-slate-100 text-slate-600 rounded-xl group-hover:bg-slate-200 transition-colors">
                 <LucideIcon name="Code" size={24} />
