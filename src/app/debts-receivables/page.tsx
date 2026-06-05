@@ -1,0 +1,520 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { debtsService } from '@/lib/db';
+import { Debt } from '@/lib/db/types';
+import { LucideIcon } from '@/components/ui/LucideIcon';
+import { Modal } from '@/components/ui/Modal';
+
+export default function DebtsReceivablesPage() {
+  const [debts, setDebts] = useState<Debt[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Filtering states
+  const [filterType, setFilterType] = useState<'all' | 'debt' | 'receivable'>('all');
+  const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Form modal states
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editDebt, setEditDebt] = useState<Debt | null>(null);
+
+  // Form Fields
+  const [contactName, setContactName] = useState('');
+  const [amount, setAmount] = useState('');
+  const [type, setType] = useState<'debt' | 'receivable'>('debt');
+  const [dueDate, setDueDate] = useState('');
+  const [status, setStatus] = useState<'Lunas' | 'Belum Lunas' | 'Terlambat'>('Belum Lunas');
+  const [referenceNo, setReferenceNo] = useState('');
+  const [notes, setNotes] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const fetchDebts = async () => {
+    setLoading(true);
+    try {
+      const list = await debtsService.list();
+      setDebts(list);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDebts();
+  }, []);
+
+  // Form Populate
+  const handleOpenForm = (record: Debt | null = null) => {
+    if (record) {
+      setEditDebt(record);
+      setContactName(record.contact_name);
+      setAmount(record.amount.toString());
+      setType(record.type);
+      setDueDate(record.due_date || '');
+      setStatus(record.status);
+      setReferenceNo(record.reference_no || '');
+      setNotes(record.notes || '');
+    } else {
+      setEditDebt(null);
+      setContactName('');
+      setAmount('');
+      setType('debt');
+      setDueDate(new Date().toISOString().split('T')[0]);
+      setStatus('Belum Lunas');
+      setReferenceNo('');
+      setNotes('');
+    }
+    setIsFormOpen(true);
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactName || !amount || Number(amount) <= 0) return alert('Lengkapi data dengan nominal valid.');
+
+    setSaving(true);
+    try {
+      const payload = {
+        contact_name: contactName,
+        amount: Number(amount),
+        type,
+        due_date: dueDate || undefined,
+        status,
+        reference_no: referenceNo || undefined,
+        notes: notes || undefined,
+      };
+
+      if (editDebt) {
+        await debtsService.update(editDebt.id, payload);
+      } else {
+        await debtsService.create(payload);
+      }
+      fetchDebts();
+      setIsFormOpen(false);
+    } catch (e) {
+      console.error(e);
+      alert('Gagal menyimpan catatan');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
+      await debtsService.delete(id);
+      fetchDebts();
+    }
+  };
+
+  const handleToggleSettle = async (record: Debt) => {
+    const nextStatus = record.status === 'Lunas' ? 'Belum Lunas' : 'Lunas';
+    await debtsService.update(record.id, { status: nextStatus });
+    fetchDebts();
+  };
+
+  // Calculate stats
+  const totalDebt = debts.filter(d => d.type === 'debt' && d.status !== 'Lunas').reduce((sum, d) => sum + Number(d.amount), 0);
+  const totalReceivable = debts.filter(d => d.type === 'receivable' && d.status !== 'Lunas').reduce((sum, d) => sum + Number(d.amount), 0);
+  const netDiff = totalReceivable - totalDebt;
+
+  // Filter lists
+  const filteredDebts = debts.filter((d) => {
+    const matchesType = filterType === 'all' || d.type === filterType;
+    const matchesStatus = filterStatus === 'all' || d.status === filterStatus;
+    const matchesSearch = d.contact_name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          (d.reference_no && d.reference_no.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    return matchesType && matchesStatus && matchesSearch;
+  });
+
+  return (
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-800">Hutang & Piutang</h2>
+          <p className="text-xs text-slate-400 font-medium mt-1">Kelola daftar kewajiban dan tagihan Anda secara terpusat.</p>
+        </div>
+        <button
+          onClick={() => handleOpenForm(null)}
+          className="px-4 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-150 transition-colors cursor-pointer"
+        >
+          <LucideIcon name="Plus" size={16} />
+          <span>Tambah Catatan</span>
+        </button>
+      </div>
+
+      {/* 3 Metric Card Summary (Matching exact screenshots) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Total Hutang */}
+        <div className="premium-card p-6 bg-white border-slate-100 flex items-center justify-between">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full uppercase leading-none">
+              Kewajiban
+            </span>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Total Hutang</p>
+            <h3 className="text-2xl font-bold text-slate-800">
+              Rp {totalDebt.toLocaleString('id-ID')}
+            </h3>
+          </div>
+          <div className="p-3.5 bg-rose-50 text-rose-600 rounded-2xl">
+            <LucideIcon name="ArrowDown" size={24} />
+          </div>
+        </div>
+
+        {/* Total Piutang */}
+        <div className="premium-card p-6 bg-white border-slate-100 flex items-center justify-between">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase leading-none">
+              Aset Berjalan
+            </span>
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Total Piutang</p>
+            <h3 className="text-2xl font-bold text-slate-800">
+              Rp {totalReceivable.toLocaleString('id-ID')}
+            </h3>
+          </div>
+          <div className="p-3.5 bg-emerald-50 text-emerald-600 rounded-2xl">
+            <LucideIcon name="ArrowUp" size={24} />
+          </div>
+        </div>
+
+        {/* Selisih Bersih */}
+        <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/20 to-indigo-100/10 border-indigo-100 flex items-center justify-between">
+          <div className="space-y-2">
+            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-widest">Selisih Bersih (Piutang - Hutang)</p>
+            <h3 className="text-2xl font-bold text-indigo-950">
+              Rp {netDiff.toLocaleString('id-ID')}
+            </h3>
+            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${netDiff >= 0 ? 'text-emerald-700 bg-emerald-50' : 'text-rose-700 bg-rose-50'}`}>
+              <LucideIcon name={netDiff >= 0 ? 'CheckCircle2' : 'AlertCircle'} size={10} />
+              {netDiff >= 0 ? 'Posisi Keuangan Positif' : 'Posisi Keuangan Negatif'}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters & Tabs (Matching the visual mockup layout) */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        {/* Tabs type */}
+        <div className="flex bg-slate-100/80 p-1 rounded-xl border border-slate-200/50">
+          <button
+            onClick={() => setFilterType('all')}
+            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              filterType === 'all' 
+                ? 'bg-white text-indigo-600 shadow-xs' 
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            Semua
+          </button>
+          <button
+            onClick={() => setFilterType('debt')}
+            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              filterType === 'debt' 
+                ? 'bg-white text-indigo-600 shadow-xs' 
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            Hutang Saja
+          </button>
+          <button
+            onClick={() => setFilterType('receivable')}
+            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              filterType === 'receivable' 
+                ? 'bg-white text-indigo-600 shadow-xs' 
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            Piutang Saja
+          </button>
+        </div>
+
+        {/* Right filters */}
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          {/* Keyword Search */}
+          <div className="relative flex-1 sm:w-48">
+            <LucideIcon name="Search" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+            <input
+              type="text"
+              placeholder="Cari kontak..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-8.5 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-hidden"
+            />
+          </div>
+
+          {/* Status filter */}
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-hidden cursor-pointer"
+          >
+            <option value="all">Semua Status</option>
+            <option value="Belum Lunas">Belum Lunas</option>
+            <option value="Lunas">Lunas</option>
+            <option value="Terlambat">Terlambat</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Main Table view */}
+      <div className="premium-card bg-white overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                <th className="py-3 px-6">Nama Kontak / Referensi</th>
+                <th className="py-3 px-4">Jenis</th>
+                <th className="py-3 px-4">Jatuh Tempo</th>
+                <th className="py-3 px-4 text-right">Jumlah (Rp)</th>
+                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-6 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="text-center py-12">
+                    <div className="w-7 h-7 border-3 border-indigo-650 border-t-transparent rounded-full animate-spin mx-auto" />
+                  </td>
+                </tr>
+              ) : filteredDebts.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="text-center py-20">
+                    <LucideIcon name="Inbox" className="mx-auto text-slate-200 mb-2" size={32} />
+                    <p className="text-xs text-slate-400 font-bold">Tidak ada catatan hutang piutang</p>
+                  </td>
+                </tr>
+              ) : (
+                filteredDebts.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
+                    {/* Name */}
+                    <td className="py-4 px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs shrink-0">
+                          {item.contact_name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-xs text-slate-800 leading-snug">{item.contact_name}</h4>
+                          <span className="text-[9px] text-slate-400 font-semibold uppercase mt-0.5 block">{item.reference_no || 'Tanpa Referensi'}</span>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Type */}
+                    <td className="py-4 px-4">
+                      {item.type === 'debt' ? (
+                        <span className="inline-flex items-center gap-1 text-rose-600 text-xs font-bold leading-none">
+                          <LucideIcon name="ArrowDown" size={12} />
+                          Hutang
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-emerald-600 text-xs font-bold leading-none">
+                          <LucideIcon name="ArrowUp" size={12} />
+                          Piutang
+                        </span>
+                      )}
+                    </td>
+
+                    {/* Due Date */}
+                    <td className="py-4 px-4 text-xs font-semibold text-slate-500">
+                      {item.due_date ? (
+                        new Date(item.due_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+                      ) : (
+                        '-'
+                      )}
+                    </td>
+
+                    {/* Amount */}
+                    <td className="py-4 px-4 text-right font-bold text-xs text-slate-800">
+                      Rp {item.amount.toLocaleString('id-ID')}
+                    </td>
+
+                    {/* Status Badge */}
+                    <td className="py-4 px-4 text-center">
+                      <span className={`
+                        inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold leading-none
+                        ${item.status === 'Lunas' 
+                          ? 'text-emerald-700 bg-emerald-50' 
+                          : item.status === 'Terlambat' 
+                          ? 'text-rose-700 bg-rose-50' 
+                          : 'text-indigo-700 bg-indigo-50'}
+                      `}>
+                        {item.status}
+                      </span>
+                    </td>
+
+                    {/* Actions */}
+                    <td className="py-4 px-6 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        {/* Mark Settle Toggle */}
+                        <button
+                          onClick={() => handleToggleSettle(item)}
+                          className={`p-1.5 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center ${
+                            item.status === 'Lunas' 
+                              ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' 
+                              : 'bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-400'
+                          }`}
+                          title={item.status === 'Lunas' ? 'Tandai Belum Lunas' : 'Tandai Lunas'}
+                        >
+                          <LucideIcon name="Check" size={14} />
+                        </button>
+                        
+                        {/* Edit */}
+                        <button
+                          onClick={() => handleOpenForm(item)}
+                          className="p-1.5 bg-slate-50 hover:bg-slate-100 text-slate-500 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                          title="Ubah"
+                        >
+                          <LucideIcon name="Edit3" size={14} />
+                        </button>
+
+                        {/* Delete */}
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="p-1.5 bg-slate-50 hover:bg-rose-50 hover:text-rose-600 text-slate-400 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                          title="Hapus"
+                        >
+                          <LucideIcon name="Trash2" size={14} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Record Creation/Modification Modal */}
+      <Modal
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        title={editDebt ? 'Ubah Catatan' : 'Tambah Catatan Baru'}
+      >
+        <form onSubmit={handleSave} className="space-y-4">
+          {/* Record Type select */}
+          <div className="grid grid-cols-2 p-1 bg-slate-50 border border-slate-100 rounded-xl">
+            <button
+              type="button"
+              onClick={() => setType('debt')}
+              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                type === 'debt' 
+                  ? 'bg-white text-rose-600 shadow-xs' 
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              Hutang (Kewajiban)
+            </button>
+            <button
+              type="button"
+              onClick={() => setType('receivable')}
+              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                type === 'receivable' 
+                  ? 'bg-white text-emerald-600 shadow-xs' 
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              Piutang (Hak Tagih)
+            </button>
+          </div>
+
+          {/* Contact name */}
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Nama Kontak</label>
+            <input
+              type="text"
+              value={contactName}
+              onChange={(e) => setContactName(e.target.value)}
+              placeholder="e.g. PT Maju Jaya"
+              required
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+            />
+          </div>
+
+          {/* Amount & Ref No grid */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Jumlah (Rp)</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0"
+                required
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden font-semibold text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">No Referensi / Invoice</label>
+              <input
+                type="text"
+                value={referenceNo}
+                onChange={(e) => setReferenceNo(e.target.value)}
+                placeholder="e.g. INV-2023-089"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              />
+            </div>
+          </div>
+
+          {/* Due date & Status grid */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Tanggal Jatuh Tempo</label>
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm text-slate-650"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Status</label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value as any)}
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm cursor-pointer"
+              >
+                <option value="Belum Lunas">Belum Lunas</option>
+                <option value="Lunas">Lunas</option>
+                <option value="Terlambat">Terlambat</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Catatan Tambahan</label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Deskripsi atau rincian pembayaran..."
+              rows={3}
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => setIsFormOpen(false)}
+              className="px-5 py-2.5 border border-slate-150 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+            >
+              {saving ? 'Menyimpan...' : 'Simpan Catatan'}
+            </button>
+          </div>
+        </form>
+      </Modal>
+    </div>
+  );
+}

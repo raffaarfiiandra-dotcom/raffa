@@ -1,0 +1,17 @@
+{
+  "name": "WealthManager Premium Finance",
+  "short_name": "WealthManager",
+  "description": "Premium Finance and Wealth Management Dashboard",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#3b2fc9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
