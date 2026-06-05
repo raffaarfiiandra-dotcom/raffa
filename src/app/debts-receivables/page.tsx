@@ -242,13 +242,13 @@ export default function DebtsReceivablesPage() {
         <div className="flex items-center gap-3 w-full sm:w-auto">
           {/* Keyword Search */}
           <div className="relative flex-1 sm:w-48">
-            <LucideIcon name="Search" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+            <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
             <input
               type="text"
               placeholder="Cari kontak..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8.5 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-hidden"
+              className="premium-input pl-11"
             />
           </div>
 
@@ -256,7 +256,7 @@ export default function DebtsReceivablesPage() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-hidden cursor-pointer"
+            className="premium-select"
           >
             <option value="all">Semua Status</option>
             <option value="Belum Lunas">Belum Lunas</option>

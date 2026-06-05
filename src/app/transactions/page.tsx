@@ -152,7 +152,7 @@ export default function TransactionsPage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input pl-10"
+              className="premium-input pl-11"
             />
           </div>
 

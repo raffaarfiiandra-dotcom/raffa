@@ -5,7 +5,7 @@ import { transactionsService, categoriesService } from '@/lib/db';
 import { Transaction, Category } from '@/lib/db/types';
 import { LucideIcon } from '@/components/ui/LucideIcon';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
 const formatLocalDate = (date: Date): string => {
@@ -230,7 +230,7 @@ export default function ReportsPage() {
       `Rp ${tx.amount.toLocaleString('id-ID')}`
     ]);
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: headers,
       body: data,
       startY: 82,
