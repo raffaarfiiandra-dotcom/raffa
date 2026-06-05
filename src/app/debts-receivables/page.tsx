@@ -6,6 +6,14 @@ import { Debt } from '@/lib/db/types';
 import { LucideIcon } from '@/components/ui/LucideIcon';
 import { Modal } from '@/components/ui/Modal';
 
+const getLocalDateString = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export default function DebtsReceivablesPage() {
   const [debts, setDebts] = useState<Debt[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,7 +69,7 @@ export default function DebtsReceivablesPage() {
       setContactName('');
       setAmount('');
       setType('debt');
-      setDueDate(new Date().toISOString().split('T')[0]);
+      setDueDate(getLocalDateString());
       setStatus('Belum Lunas');
       setReferenceNo('');
       setNotes('');
