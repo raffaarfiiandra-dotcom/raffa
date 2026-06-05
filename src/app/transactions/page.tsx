@@ -186,26 +186,32 @@ export default function TransactionsPage() {
           </select>
 
           {/* Start Date */}
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => {
-              setStartDate(e.target.value);
-              setCurrentPage(1);
-            }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
-          />
+          <div className="relative flex items-center">
+            <span className="absolute left-3 text-[9px] font-bold text-slate-400 uppercase pointer-events-none">Mulai</span>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full pl-12 pr-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
+            />
+          </div>
 
           {/* End Date */}
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => {
-              setEndDate(e.target.value);
-              setCurrentPage(1);
-            }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
-          />
+          <div className="relative flex items-center">
+            <span className="absolute left-3 text-[9px] font-bold text-slate-400 uppercase pointer-events-none">Selesai</span>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => {
+                setEndDate(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full pl-16 pr-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
+            />
+          </div>
         </div>
 
         {/* Clear filter button */}
