@@ -140,9 +140,9 @@ export default function TransactionsPage() {
 
       {/* Filter Options */}
       <div className="premium-card p-5 bg-white space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-11 gap-3.5 items-center">
           {/* Keyword Search */}
-          <div className="relative">
+          <div className="relative xl:col-span-3">
             <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
             <input
               type="text"
@@ -157,36 +157,40 @@ export default function TransactionsPage() {
           </div>
 
           {/* Type Select */}
-          <select
-            value={selectedType}
-            onChange={(e) => {
-              setSelectedType(e.target.value as any);
-              setCurrentPage(1);
-            }}
-            className="premium-select"
-          >
-            <option value="all">Semua Tipe</option>
-            <option value="income">Pemasukan Saja</option>
-            <option value="expense">Pengeluaran Saja</option>
-          </select>
+          <div className="xl:col-span-2">
+            <select
+              value={selectedType}
+              onChange={(e) => {
+                setSelectedType(e.target.value as any);
+                setCurrentPage(1);
+              }}
+              className="premium-select"
+            >
+              <option value="all">Semua Tipe</option>
+              <option value="income">Pemasukan Saja</option>
+              <option value="expense">Pengeluaran Saja</option>
+            </select>
+          </div>
 
           {/* Category Select */}
-          <select
-            value={selectedCategory}
-            onChange={(e) => {
-              setSelectedCategory(e.target.value);
-              setCurrentPage(1);
-            }}
-            className="premium-select"
-          >
-            <option value="all">Semua Kategori</option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>{c.name} ({c.type === 'income' ? 'Masuk' : 'Keluar'})</option>
-            ))}
-          </select>
+          <div className="xl:col-span-2">
+            <select
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="premium-select"
+            >
+              <option value="all">Semua Kategori</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>{c.name} ({c.type === 'income' ? 'Masuk' : 'Keluar'})</option>
+              ))}
+            </select>
+          </div>
 
           {/* Start Date */}
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center gap-2 w-full xl:col-span-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Mulai</span>
             <input
               type="date"
@@ -200,7 +204,7 @@ export default function TransactionsPage() {
           </div>
 
           {/* End Date */}
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center gap-2 w-full xl:col-span-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Selesai</span>
             <input
               type="date"

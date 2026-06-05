@@ -87,6 +87,26 @@ body {
   opacity: 0.8;
 }
 
+/* Date input specific styles to position the calendar icon properly and avoid overlaps */
+input[type="date"].premium-input {
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+input[type="date"].premium-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+input[type="date"].premium-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 .premium-select {
   display: block;
   width: 100%;
