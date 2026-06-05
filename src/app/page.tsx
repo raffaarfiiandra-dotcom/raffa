@@ -143,7 +143,7 @@ export default function LandingPage() {
             </div>
             
             {/* Decorative Divider */}
-            <div className="w-[1px] h-32 bg-slate-150 hidden md:block" />
+            <div className="w-[1px] h-32 bg-slate-200 hidden md:block" />
 
             {/* Mockup Right */}
             <div className="flex-1 w-full flex flex-col justify-around text-left space-y-3">

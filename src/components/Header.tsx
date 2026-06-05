@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
             placeholder="Search transactions, debts, goals..."
             value={searchVal}
             onChange={handleSearchChange}
-            className="w-full pl-10 pr-4 py-2 text-[14px] bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-150"
+            className="w-full pl-10 pr-4 py-2 text-[14px] bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-150"
           />
         </div>
       </div>

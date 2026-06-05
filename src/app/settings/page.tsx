@@ -366,7 +366,7 @@ export default function SettingsPage() {
                     return (
                       <div 
                         key={goal.id}
-                        className="p-5 border border-slate-150/60 rounded-2xl space-y-3 hover:shadow-xs transition-shadow relative"
+                        className="p-5 border border-slate-200/60 rounded-2xl space-y-3 hover:shadow-xs transition-shadow relative"
                       >
                         <button
                           onClick={() => handleDeleteGoal(goal.id)}
@@ -417,7 +417,7 @@ export default function SettingsPage() {
         <form onSubmit={handleAddCategory} className="space-y-4">
           <div>
             <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Tipe Kategori</label>
-            <div className="grid grid-cols-2 p-1 bg-slate-50 border border-slate-150 rounded-xl">
+            <div className="grid grid-cols-2 p-1 bg-slate-50 border border-slate-200 rounded-xl">
               <button
                 type="button"
                 onClick={() => setCatType('expense')}
@@ -452,7 +452,7 @@ export default function SettingsPage() {
               onChange={(e) => setCatName(e.target.value)}
               placeholder="e.g. Belajar Mandiri"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -498,7 +498,7 @@ export default function SettingsPage() {
             <button
               type="button"
               onClick={() => setIsCatModalOpen(false)}
-              className="px-5 py-2.5 border border-slate-150 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl cursor-pointer"
+              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl cursor-pointer"
             >
               Batal
             </button>
@@ -529,7 +529,7 @@ export default function SettingsPage() {
               onChange={(e) => setGoalTitle(e.target.value)}
               placeholder="e.g. Beli Rumah Impian"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -543,7 +543,7 @@ export default function SettingsPage() {
                 onChange={(e) => setGoalTarget(e.target.value)}
                 placeholder="0"
                 required
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
               />
             </div>
             <div>
@@ -553,7 +553,7 @@ export default function SettingsPage() {
                 value={goalCurrent}
                 onChange={(e) => setGoalCurrent(e.target.value)}
                 placeholder="0"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
               />
             </div>
           </div>
@@ -565,7 +565,7 @@ export default function SettingsPage() {
               type="date"
               value={goalDeadline}
               onChange={(e) => setGoalDeadline(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm text-slate-600"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600"
             />
           </div>
 
@@ -574,7 +574,7 @@ export default function SettingsPage() {
             <button
               type="button"
               onClick={() => setIsGoalModalOpen(false)}
-              className="px-5 py-2.5 border border-slate-150 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl cursor-pointer"
+              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl cursor-pointer"
             >
               Batal
             </button>

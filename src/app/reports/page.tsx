@@ -8,6 +8,13 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 
+const formatLocalDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export default function ReportsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,26 +59,28 @@ export default function ReportsPage() {
   useEffect(() => {
     const today = new Date();
     if (rangeType === 'daily') {
-      const dateStr = today.toISOString().split('T')[0];
+      const dateStr = formatLocalDate(today);
       setStartDate(dateStr);
       setEndDate(dateStr);
     } else if (rangeType === 'weekly') {
-      const first = today.getDate() - today.getDay();
-      const last = first + 6;
-      const firstDay = new Date(today.setDate(first)).toISOString().split('T')[0];
-      const lastDay = new Date(today.setDate(last)).toISOString().split('T')[0];
-      setStartDate(firstDay);
-      setEndDate(lastDay);
+      const currentDay = today.getDay();
+      const start = new Date(today);
+      start.setDate(today.getDate() - currentDay);
+      const end = new Date(today);
+      end.setDate(today.getDate() - currentDay + 6);
+      
+      setStartDate(formatLocalDate(start));
+      setEndDate(formatLocalDate(end));
     } else if (rangeType === 'monthly') {
-      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
-      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
-      setStartDate(firstDay);
-      setEndDate(lastDay);
+      const start = new Date(today.getFullYear(), today.getMonth(), 1);
+      const end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+      setStartDate(formatLocalDate(start));
+      setEndDate(formatLocalDate(end));
     } else if (rangeType === 'yearly') {
-      const firstDay = new Date(today.getFullYear(), 0, 1).toISOString().split('T')[0];
-      const lastDay = new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0];
-      setStartDate(firstDay);
-      setEndDate(lastDay);
+      const start = new Date(today.getFullYear(), 0, 1);
+      const end = new Date(today.getFullYear(), 11, 31);
+      setStartDate(formatLocalDate(start));
+      setEndDate(formatLocalDate(end));
     }
   }, [rangeType]);
 
@@ -269,7 +278,7 @@ export default function ReportsPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden"
+              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden"
             />
           </div>
           <div>
@@ -278,7 +287,7 @@ export default function ReportsPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden"
+              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden"
             />
           </div>
         </div>

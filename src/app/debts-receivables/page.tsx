@@ -438,7 +438,7 @@ export default function DebtsReceivablesPage() {
               onChange={(e) => setContactName(e.target.value)}
               placeholder="e.g. PT Maju Jaya"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -452,7 +452,7 @@ export default function DebtsReceivablesPage() {
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0"
                 required
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden font-semibold text-sm"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden font-semibold text-sm"
               />
             </div>
             <div>
@@ -462,7 +462,7 @@ export default function DebtsReceivablesPage() {
                 value={referenceNo}
                 onChange={(e) => setReferenceNo(e.target.value)}
                 placeholder="e.g. INV-2023-089"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
               />
             </div>
           </div>
@@ -475,7 +475,7 @@ export default function DebtsReceivablesPage() {
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm text-slate-600"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600"
               />
             </div>
             <div>
@@ -483,7 +483,7 @@ export default function DebtsReceivablesPage() {
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm cursor-pointer"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm cursor-pointer"
               >
                 <option value="Belum Lunas">Belum Lunas</option>
                 <option value="Lunas">Lunas</option>
@@ -500,7 +500,7 @@ export default function DebtsReceivablesPage() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Deskripsi atau rincian pembayaran..."
               rows={3}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -509,7 +509,7 @@ export default function DebtsReceivablesPage() {
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-5 py-2.5 border border-slate-150 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Batal
             </button>

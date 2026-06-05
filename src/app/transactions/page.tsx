@@ -152,7 +152,7 @@ export default function TransactionsPage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+              className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
             />
           </div>
 
@@ -163,7 +163,7 @@ export default function TransactionsPage() {
               setSelectedType(e.target.value as any);
               setCurrentPage(1);
             }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
           >
             <option value="all">Semua Tipe</option>
             <option value="income">Pemasukan Saja</option>
@@ -177,7 +177,7 @@ export default function TransactionsPage() {
               setSelectedCategory(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
           >
             <option value="all">Semua Kategori</option>
             {categories.map((c) => (
@@ -186,8 +186,8 @@ export default function TransactionsPage() {
           </select>
 
           {/* Start Date */}
-          <div className="relative flex items-center">
-            <span className="absolute left-3 text-[9px] font-bold text-slate-400 uppercase pointer-events-none">Mulai</span>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0">Mulai</span>
             <input
               type="date"
               value={startDate}
@@ -195,13 +195,13 @@ export default function TransactionsPage() {
                 setStartDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-12 pr-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
+              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600 cursor-pointer"
             />
           </div>
 
           {/* End Date */}
-          <div className="relative flex items-center">
-            <span className="absolute left-3 text-[9px] font-bold text-slate-400 uppercase pointer-events-none">Selesai</span>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0">Selesai</span>
             <input
               type="date"
               value={endDate}
@@ -209,7 +209,7 @@ export default function TransactionsPage() {
                 setEndDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-16 pr-3 py-2 text-xs bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600"
+              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600 cursor-pointer"
             />
           </div>
         </div>

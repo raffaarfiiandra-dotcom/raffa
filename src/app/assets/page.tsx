@@ -309,7 +309,7 @@ export default function AssetsPage() {
             <select
               value={type}
               onChange={(e) => setType(e.target.value as any)}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm cursor-pointer"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm cursor-pointer"
             >
               <option value="property">Properti (Property)</option>
               <option value="investment">Investasi (Investment)</option>
@@ -328,7 +328,7 @@ export default function AssetsPage() {
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. TABUNGAN BCA"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm uppercase"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm uppercase"
             />
           </div>
 
@@ -341,7 +341,7 @@ export default function AssetsPage() {
               onChange={(e) => setBalance(e.target.value)}
               placeholder="0"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden font-semibold text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden font-semibold text-sm"
             />
           </div>
 
@@ -354,7 +354,7 @@ export default function AssetsPage() {
               value={changePercentage}
               onChange={(e) => setChangePercentage(e.target.value)}
               placeholder="0.0"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -366,7 +366,7 @@ export default function AssetsPage() {
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="e.g. 3 Rekening Aktif, 1 Unit Apartemen"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -375,7 +375,7 @@ export default function AssetsPage() {
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-5 py-2.5 border border-slate-150 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Batal
             </button>

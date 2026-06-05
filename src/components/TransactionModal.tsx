@@ -287,7 +287,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 border border-slate-150 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+            className="px-5 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
           >
             Batal
           </button>
