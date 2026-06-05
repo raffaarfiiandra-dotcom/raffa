@@ -529,7 +529,7 @@ export default function SettingsPage() {
               onChange={(e) => setGoalTitle(e.target.value)}
               placeholder="e.g. Beli Rumah Impian"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
             />
           </div>
 
@@ -543,7 +543,7 @@ export default function SettingsPage() {
                 onChange={(e) => setGoalTarget(e.target.value)}
                 placeholder="0"
                 required
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
               />
             </div>
             <div>
@@ -553,7 +553,7 @@ export default function SettingsPage() {
                 value={goalCurrent}
                 onChange={(e) => setGoalCurrent(e.target.value)}
                 placeholder="0"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
               />
             </div>
           </div>
@@ -566,7 +566,7 @@ export default function SettingsPage() {
                 type="date"
                 value={goalDeadline}
                 onChange={(e) => setGoalDeadline(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600 cursor-pointer"
+                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600 cursor-pointer"
               />
             </div>
           </div>
