@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { authService } from '@/lib/db';
+import { authService, getSessionUser } from '@/lib/db';
 import { LucideIcon } from '@/components/ui/LucideIcon';
 
 export default function RegisterPage() {
@@ -13,6 +13,17 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Redirect if already logged in
+  useEffect(() => {
+    const checkLogged = async () => {
+      const user = await getSessionUser();
+      if (user) {
+        router.push('/dashboard');
+      }
+    };
+    checkLogged();
+  }, [router]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,7 +109,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-indigo-650 hover:bg-indigo-750 active:bg-indigo-850 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-150 transition-colors cursor-pointer"
+            className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-100 transition-colors cursor-pointer"
           >
             {loading ? 'Mendaftar...' : 'Daftar Sekarang'}
           </button>
@@ -109,7 +120,7 @@ export default function RegisterPage() {
       <div className="mt-6 text-center">
         <p className="text-xs text-slate-500">
           Sudah memiliki akun?{' '}
-          <Link href="/login" className="font-bold text-indigo-650 hover:underline">
+          <Link href="/login" className="font-bold text-indigo-600 hover:underline">
             Masuk
           </Link>
         </p>

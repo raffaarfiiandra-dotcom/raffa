@@ -382,7 +382,7 @@ export default function AssetsPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {saving ? 'Menyimpan...' : 'Simpan Aset'}
             </button>

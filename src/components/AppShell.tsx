@@ -39,8 +39,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
     }
 
     const checkAuth = async () => {
-      // Allow login and register screens to bypass check
-      if (pathname === '/login' || pathname === '/register') {
+      // Allow landing page, login, and register screens to bypass check
+      if (pathname === '/' || pathname === '/login' || pathname === '/register') {
         setAuthLoading(false);
         return;
       }
@@ -66,8 +66,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
 
   if (!isMounted) return null;
 
-  // Render auth pages without AppShell framing
-  if (pathname === '/login' || pathname === '/register') {
+  // Render auth pages and landing page without AppShell framing
+  if (pathname === '/' || pathname === '/login' || pathname === '/register') {
     return <>{children}</>;
   }
 

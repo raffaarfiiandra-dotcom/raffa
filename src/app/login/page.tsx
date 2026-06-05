@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { authService } from '@/lib/db';
+import { authService, getSessionUser } from '@/lib/db';
 import { LucideIcon } from '@/components/ui/LucideIcon';
 
 export default function LoginPage() {
@@ -12,6 +12,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Redirect if already logged in
+  useEffect(() => {
+    const checkLogged = async () => {
+      const user = await getSessionUser();
+      if (user) {
+        router.push('/dashboard');
+      }
+    };
+    checkLogged();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,15 +38,15 @@ export default function LoginPage() {
     }
   };
 
-  // Google Login Bypass
+  // Google Login
   const handleGoogleLogin = async () => {
     setLoading(true);
-    // Simulate google login success in mock mode
-    const res = await authService.login('user@wealthmanager.com', 'password');
+    setError('');
+    const res = await authService.loginWithGoogle();
     if (res.success) {
       router.push('/dashboard');
     } else {
-      setError('Google login failed');
+      setError(res.error || 'Google login failed');
       setLoading(false);
     }
   };
@@ -101,7 +112,7 @@ export default function LoginPage() {
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Kata Sandi</label>
-              <Link href="#" className="text-[11px] font-semibold text-indigo-650 hover:underline">Lupa Kata Sandi?</Link>
+              <Link href="#" className="text-[11px] font-semibold text-indigo-600 hover:underline">Lupa Kata Sandi?</Link>
             </div>
             <div className="relative">
               <LucideIcon name="Lock" size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -119,7 +130,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-indigo-650 hover:bg-indigo-750 active:bg-indigo-850 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-150 transition-colors cursor-pointer"
+            className="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-100 transition-colors cursor-pointer"
           >
             {loading ? 'Masuk...' : 'Masuk'}
           </button>
@@ -130,7 +141,7 @@ export default function LoginPage() {
       <div className="mt-6 text-center">
         <p className="text-xs text-slate-500">
           Belum memiliki akun?{' '}
-          <Link href="/register" className="font-bold text-indigo-650 hover:underline">
+          <Link href="/register" className="font-bold text-indigo-600 hover:underline">
             Daftar Akun Baru
           </Link>
         </p>

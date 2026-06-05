@@ -138,7 +138,7 @@ export default function DebtsReceivablesPage() {
         </div>
         <button
           onClick={() => handleOpenForm(null)}
-          className="px-4 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-150 transition-colors cursor-pointer"
+          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-100 transition-colors cursor-pointer"
         >
           <LucideIcon name="Plus" size={16} />
           <span>Tambah Catatan</span>
@@ -276,7 +276,7 @@ export default function DebtsReceivablesPage() {
               {loading ? (
                 <tr>
                   <td colSpan={6} className="text-center py-12">
-                    <div className="w-7 h-7 border-3 border-indigo-650 border-t-transparent rounded-full animate-spin mx-auto" />
+                    <div className="w-7 h-7 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
                   </td>
                 </tr>
               ) : filteredDebts.length === 0 ? (
@@ -467,7 +467,7 @@ export default function DebtsReceivablesPage() {
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm text-slate-650"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-150 rounded-xl focus:outline-hidden text-sm text-slate-600"
               />
             </div>
             <div>
@@ -508,7 +508,7 @@ export default function DebtsReceivablesPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {saving ? 'Menyimpan...' : 'Simpan Catatan'}
             </button>

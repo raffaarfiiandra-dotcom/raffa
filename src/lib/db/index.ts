@@ -125,6 +125,34 @@ export const authService = {
     return { success: true };
   },
 
+  async loginWithGoogle(): Promise<{ success: boolean; error?: string }> {
+    if (isSupabaseConfigured() && supabase) {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined,
+        }
+      });
+      return { success: !error, error: error?.message };
+    }
+    
+    // Mock Mode: Generate a unique, randomized mock user for testing distinct accounts
+    const randomId = Math.floor(1000 + Math.random() * 9000);
+    const mockEmail = `google.user.${randomId}@example.com`;
+    const mockName = `Google User #${randomId}`;
+    
+    const users = getLocalData<any[]>('users', []);
+    const newId = crypto.randomUUID();
+    const newUser = { id: newId, email: mockEmail, password: 'google-password', full_name: mockName };
+    users.push(newUser);
+    setLocalData('users', users);
+    
+    // Log in
+    const profile: Profile = { id: newId, email: mockEmail, full_name: mockName };
+    setLocalData('session', profile);
+    return { success: true };
+  },
+
   async logout(): Promise<void> {
     if (isSupabaseConfigured() && supabase) {
       await supabase.auth.signOut();

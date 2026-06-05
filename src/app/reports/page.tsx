@@ -303,7 +303,7 @@ export default function ReportsPage() {
         <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-100">
           <div className="space-y-1">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Arus Kas Bersih (Net)</span>
-            <h3 className={`text-xl font-bold ${cashflow >= 0 ? 'text-indigo-650' : 'text-rose-600'}`}>
+            <h3 className={`text-xl font-bold ${cashflow >= 0 ? 'text-indigo-600' : 'text-rose-600'}`}>
               Rp {cashflow.toLocaleString('id-ID')}
             </h3>
           </div>

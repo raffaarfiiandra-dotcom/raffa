@@ -162,7 +162,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="w-8 h-8 border-3 border-indigo-650 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -270,7 +270,7 @@ export default function SettingsPage() {
                         id="notif-check"
                         checked={settings.notifications_enabled}
                         onChange={(e) => setSettings({ ...settings, notifications_enabled: e.target.checked })}
-                        className="w-4.5 h-4.5 text-indigo-650 bg-slate-100 border-slate-300 rounded-md focus:ring-indigo-500 cursor-pointer"
+                        className="w-4.5 h-4.5 text-indigo-600 bg-slate-100 border-slate-300 rounded-md focus:ring-indigo-500 cursor-pointer"
                       />
                       <label htmlFor="notif-check" className="ml-2 text-xs font-semibold text-slate-600 cursor-pointer">
                         Aktifkan pengingat jatuh tempo
@@ -370,7 +370,7 @@ export default function SettingsPage() {
                       >
                         <button
                           onClick={() => handleDeleteGoal(goal.id)}
-                          className="absolute top-4 right-4 p-1 hover:bg-rose-50 text-slate-400 hover:text-rose-650 rounded-lg cursor-pointer"
+                          className="absolute top-4 right-4 p-1 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-lg cursor-pointer"
                           title="Hapus"
                         >
                           <LucideIcon name="Trash2" size={14} />
@@ -380,7 +380,7 @@ export default function SettingsPage() {
                           <h4 className="font-bold text-xs text-slate-800 leading-snug">{goal.title}</h4>
                           <div className="flex justify-between items-center text-xs">
                             <span className="font-semibold text-slate-500">Tercapai: Rp {goal.current_amount.toLocaleString('id-ID')} / Target: Rp {goal.target_amount.toLocaleString('id-ID')}</span>
-                            <span className="font-bold text-indigo-650">{percent.toFixed(0)}%</span>
+                            <span className="font-bold text-indigo-600">{percent.toFixed(0)}%</span>
                           </div>
                         </div>
 
@@ -423,7 +423,7 @@ export default function SettingsPage() {
                 onClick={() => setCatType('expense')}
                 className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                   catType === 'expense' 
-                    ? 'bg-white text-rose-650 shadow-xs' 
+                    ? 'bg-white text-rose-600 shadow-xs' 
                     : 'text-slate-500 hover:text-slate-700'
                 }`}
               >
@@ -434,7 +434,7 @@ export default function SettingsPage() {
                 onClick={() => setCatType('income')}
                 className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                   catType === 'income' 
-                    ? 'bg-white text-emerald-650 shadow-xs' 
+                    ? 'bg-white text-emerald-600 shadow-xs' 
                     : 'text-slate-500 hover:text-slate-700'
                 }`}
               >
@@ -505,7 +505,7 @@ export default function SettingsPage() {
             <button
               type="submit"
               disabled={savingCat}
-              className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-755 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
             >
               {savingCat ? 'Menyimpan...' : 'Simpan Kategori'}
             </button>
@@ -581,7 +581,7 @@ export default function SettingsPage() {
             <button
               type="submit"
               disabled={savingGoal}
-              className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-755 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
             >
               {savingGoal ? 'Membuat...' : 'Buat Target'}
             </button>

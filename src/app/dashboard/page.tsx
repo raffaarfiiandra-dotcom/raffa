@@ -225,7 +225,7 @@ export default function DashboardPage() {
                       {/* Income Bar */}
                       <div 
                         style={{ height: `${Math.max(incHeight, 4)}px` }}
-                        className="w-4 bg-indigo-500 hover:bg-indigo-650 rounded-t-xs transition-all duration-300 relative group-hover:scale-y-105"
+                        className="w-4 bg-indigo-500 hover:bg-indigo-600 rounded-t-xs transition-all duration-300 relative group-hover:scale-y-105"
                       >
                         <span className="absolute bottom-full left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[9px] font-bold py-1 px-1.5 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-150 shadow-xs mb-1 pointer-events-none whitespace-nowrap z-20">
                           Rp {m.income.toLocaleString('id-ID')}
@@ -308,7 +308,7 @@ export default function DashboardPage() {
             </div>
             <Link 
               href="/transactions" 
-              className="text-xs font-bold text-indigo-650 hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
             >
               <span>Lihat Semua</span>
               <LucideIcon name="ChevronRight" size={14} />
@@ -362,7 +362,7 @@ export default function DashboardPage() {
                 <h3 className="font-bold text-slate-800 text-sm">Target Keuangan</h3>
                 <p className="text-[9px] text-slate-400 font-medium">Target tabungan dan kemajuan pencapaian.</p>
               </div>
-              <Link href="/settings" className="text-[10px] font-bold text-indigo-650 hover:underline">
+              <Link href="/settings" className="text-[10px] font-bold text-indigo-600 hover:underline">
                 Kelola Target
               </Link>
             </div>
@@ -381,7 +381,7 @@ export default function DashboardPage() {
                     <div key={goal.id} className="space-y-1.5">
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-semibold text-slate-700">{goal.title}</span>
-                        <span className="font-bold text-indigo-650">{percent.toFixed(0)}%</span>
+                        <span className="font-bold text-indigo-600">{percent.toFixed(0)}%</span>
                       </div>
                       {/* Bar progress */}
                       <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
