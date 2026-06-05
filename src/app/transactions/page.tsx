@@ -199,7 +199,7 @@ export default function TransactionsPage() {
                 setStartDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600"
+              className="premium-input text-slate-600 min-w-0 flex-1"
             />
           </div>
 
@@ -213,7 +213,7 @@ export default function TransactionsPage() {
                 setEndDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600"
+              className="premium-input text-slate-600 min-w-0 flex-1"
             />
           </div>
         </div>
