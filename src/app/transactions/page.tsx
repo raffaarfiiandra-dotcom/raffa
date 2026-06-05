@@ -140,7 +140,7 @@ export default function TransactionsPage() {
 
       {/* Filter Options */}
       <div className="premium-card p-5 bg-white space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 items-center">
           {/* Keyword Search */}
           <div className="relative">
             <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
@@ -152,7 +152,7 @@ export default function TransactionsPage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input pl-11"
+              className="premium-input !pl-11"
             />
           </div>
 

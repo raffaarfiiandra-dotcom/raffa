@@ -248,7 +248,7 @@ export default function DebtsReceivablesPage() {
               placeholder="Cari kontak..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="premium-input pl-11"
+              className="premium-input !pl-11"
             />
           </div>
 
