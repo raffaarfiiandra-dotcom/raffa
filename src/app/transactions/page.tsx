@@ -140,24 +140,28 @@ export default function TransactionsPage() {
 
       {/* Filter Options */}
       <div className="premium-card p-5 bg-white space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-11 gap-3.5 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-end">
           {/* Keyword Search */}
-          <div className="relative xl:col-span-3">
-            <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-            <input
-              type="text"
-              placeholder="Cari transaksi..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="premium-input !pl-11"
-            />
+          <div className="space-y-1.5 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Cari Transaksi</span>
+            <div className="relative">
+              <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+              <input
+                type="text"
+                placeholder="Cari transaksi..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="premium-input !pl-11"
+              />
+            </div>
           </div>
 
           {/* Type Select */}
-          <div className="xl:col-span-2">
+          <div className="space-y-1.5 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tipe</span>
             <select
               value={selectedType}
               onChange={(e) => {
@@ -173,7 +177,8 @@ export default function TransactionsPage() {
           </div>
 
           {/* Category Select */}
-          <div className="xl:col-span-2">
+          <div className="space-y-1.5 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kategori</span>
             <select
               value={selectedCategory}
               onChange={(e) => {
@@ -190,8 +195,8 @@ export default function TransactionsPage() {
           </div>
 
           {/* Start Date */}
-          <div className="flex items-center gap-2 w-full xl:col-span-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Mulai</span>
+          <div className="space-y-1.5 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mulai Tanggal</span>
             <input
               type="date"
               value={startDate}
@@ -199,13 +204,13 @@ export default function TransactionsPage() {
                 setStartDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600 min-w-0 flex-1"
+              className="premium-input text-slate-600 w-full"
             />
           </div>
 
           {/* End Date */}
-          <div className="flex items-center gap-2 w-full xl:col-span-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Selesai</span>
+          <div className="space-y-1.5 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sampai Tanggal</span>
             <input
               type="date"
               value={endDate}
@@ -213,7 +218,7 @@ export default function TransactionsPage() {
                 setEndDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600 min-w-0 flex-1"
+              className="premium-input text-slate-600 w-full"
             />
           </div>
         </div>
