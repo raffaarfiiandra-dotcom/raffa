@@ -180,7 +180,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0"
             required
-            className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all font-semibold text-slate-800"
+            className="premium-input font-semibold"
           />
         </div>
 
@@ -201,7 +201,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             onChange={handleDescriptionChange}
             placeholder="e.g. Beli kopi susu warung"
             required
-            className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all text-slate-700 text-sm"
+            className="premium-input"
           />
         </div>
 
@@ -216,7 +216,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 setIsCategoryManuallySelected(!!e.target.value);
               }}
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all text-slate-700 text-sm cursor-pointer"
+              className="premium-select"
             >
               <option value="">Pilih Kategori</option>
               {filteredCategories.map((c) => (
@@ -234,7 +234,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all text-slate-700 text-sm"
+              className="premium-input text-slate-700"
             />
           </div>
         </div>

@@ -232,7 +232,7 @@ export default function SettingsPage() {
                       type="text"
                       value={fullNameInput}
                       onChange={(e) => setFullNameInput(e.target.value)}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-hidden"
+                      className="premium-input"
                     />
                   </div>
                   <div>
@@ -241,7 +241,7 @@ export default function SettingsPage() {
                       type="email"
                       disabled
                       value={profile?.email || 'user@wealthmanager.com'}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 text-sm focus:outline-hidden cursor-not-allowed"
+                      className="premium-input"
                     />
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function SettingsPage() {
                     <select
                       value={settings.currency}
                       onChange={(e) => setSettings({ ...settings, currency: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-hidden cursor-pointer"
+                      className="premium-select"
                     >
                       <option value="IDR">Rupiah (IDR)</option>
                       <option value="USD">Dolar AS (USD)</option>
@@ -452,7 +452,7 @@ export default function SettingsPage() {
               onChange={(e) => setCatName(e.target.value)}
               placeholder="e.g. Belajar Mandiri"
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-input"
             />
           </div>
 
@@ -529,12 +529,12 @@ export default function SettingsPage() {
               onChange={(e) => setGoalTitle(e.target.value)}
               placeholder="e.g. Beli Rumah Impian"
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-input"
             />
           </div>
 
           {/* Target amount & Current amount */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Jumlah Target (Rp)</label>
               <input
@@ -543,7 +543,7 @@ export default function SettingsPage() {
                 onChange={(e) => setGoalTarget(e.target.value)}
                 placeholder="0"
                 required
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="premium-input font-semibold"
               />
             </div>
             <div>
@@ -553,7 +553,7 @@ export default function SettingsPage() {
                 value={goalCurrent}
                 onChange={(e) => setGoalCurrent(e.target.value)}
                 placeholder="0"
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm font-semibold"
+                className="premium-input font-semibold"
               />
             </div>
           </div>
@@ -566,7 +566,7 @@ export default function SettingsPage() {
                 type="date"
                 value={goalDeadline}
                 onChange={(e) => setGoalDeadline(e.target.value)}
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600 cursor-pointer"
+                className="premium-input text-slate-600"
               />
             </div>
           </div>

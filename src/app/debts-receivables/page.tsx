@@ -438,12 +438,12 @@ export default function DebtsReceivablesPage() {
               onChange={(e) => setContactName(e.target.value)}
               placeholder="e.g. PT Maju Jaya"
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-input"
             />
           </div>
 
           {/* Amount & Ref No grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Jumlah (Rp)</label>
               <input
@@ -452,7 +452,7 @@ export default function DebtsReceivablesPage() {
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0"
                 required
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden font-semibold text-sm"
+                className="premium-input font-semibold"
               />
             </div>
             <div>
@@ -462,20 +462,20 @@ export default function DebtsReceivablesPage() {
                 value={referenceNo}
                 onChange={(e) => setReferenceNo(e.target.value)}
                 placeholder="e.g. INV-2023-089"
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+                className="premium-input"
               />
             </div>
           </div>
 
           {/* Due date & Status grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Tanggal Jatuh Tempo</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600"
+                className="premium-input text-slate-600"
               />
             </div>
             <div>
@@ -483,7 +483,7 @@ export default function DebtsReceivablesPage() {
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm cursor-pointer"
+                className="premium-select"
               >
                 <option value="Belum Lunas">Belum Lunas</option>
                 <option value="Lunas">Lunas</option>
@@ -500,7 +500,7 @@ export default function DebtsReceivablesPage() {
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Deskripsi atau rincian pembayaran..."
               rows={3}
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-textarea"
             />
           </div>
 

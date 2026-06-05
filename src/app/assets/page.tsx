@@ -309,7 +309,7 @@ export default function AssetsPage() {
             <select
               value={type}
               onChange={(e) => setType(e.target.value as any)}
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm cursor-pointer"
+              className="premium-select"
             >
               <option value="property">Properti (Property)</option>
               <option value="investment">Investasi (Investment)</option>
@@ -328,7 +328,7 @@ export default function AssetsPage() {
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. TABUNGAN BCA"
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm uppercase"
+              className="premium-input uppercase"
             />
           </div>
 
@@ -341,7 +341,7 @@ export default function AssetsPage() {
               onChange={(e) => setBalance(e.target.value)}
               placeholder="0"
               required
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden font-semibold text-sm"
+              className="premium-input font-semibold"
             />
           </div>
 
@@ -354,7 +354,7 @@ export default function AssetsPage() {
               value={changePercentage}
               onChange={(e) => setChangePercentage(e.target.value)}
               placeholder="0.0"
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-input"
             />
           </div>
 
@@ -366,7 +366,7 @@ export default function AssetsPage() {
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="e.g. 3 Rekening Aktif, 1 Unit Apartemen"
-              className="w-full block px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm"
+              className="premium-input"
             />
           </div>
 

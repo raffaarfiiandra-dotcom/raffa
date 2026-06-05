@@ -140,10 +140,10 @@ export default function TransactionsPage() {
 
       {/* Filter Options */}
       <div className="premium-card p-5 bg-white space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 items-center">
           {/* Keyword Search */}
           <div className="relative">
-            <LucideIcon name="Search" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+            <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
             <input
               type="text"
               placeholder="Cari transaksi..."
@@ -152,7 +152,7 @@ export default function TransactionsPage() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
+              className="premium-input pl-10"
             />
           </div>
 
@@ -163,7 +163,7 @@ export default function TransactionsPage() {
               setSelectedType(e.target.value as any);
               setCurrentPage(1);
             }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+            className="premium-select"
           >
             <option value="all">Semua Tipe</option>
             <option value="income">Pemasukan Saja</option>
@@ -177,7 +177,7 @@ export default function TransactionsPage() {
               setSelectedCategory(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+            className="premium-select"
           >
             <option value="all">Semua Kategori</option>
             {categories.map((c) => (
@@ -186,8 +186,8 @@ export default function TransactionsPage() {
           </select>
 
           {/* Start Date */}
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0">Mulai</span>
+          <div className="flex items-center gap-2 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Mulai</span>
             <input
               type="date"
               value={startDate}
@@ -195,13 +195,13 @@ export default function TransactionsPage() {
                 setStartDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600 cursor-pointer"
+              className="premium-input text-slate-600"
             />
           </div>
 
           {/* End Date */}
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0">Selesai</span>
+          <div className="flex items-center gap-2 w-full">
+            <span className="text-[10px] font-bold text-slate-400 uppercase shrink-0 w-10">Selesai</span>
             <input
               type="date"
               value={endDate}
@@ -209,7 +209,7 @@ export default function TransactionsPage() {
                 setEndDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-indigo-500 text-slate-600 cursor-pointer"
+              className="premium-input text-slate-600"
             />
           </div>
         </div>
