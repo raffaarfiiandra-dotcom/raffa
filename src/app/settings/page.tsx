@@ -559,14 +559,16 @@ export default function SettingsPage() {
           </div>
 
           {/* Deadline */}
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Batas Waktu (Deadline)</label>
-            <input
-              type="date"
-              value={goalDeadline}
-              onChange={(e) => setGoalDeadline(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Batas Waktu (Deadline)</label>
+              <input
+                type="date"
+                value={goalDeadline}
+                onChange={(e) => setGoalDeadline(e.target.value)}
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden text-sm text-slate-600 cursor-pointer"
+              />
+            </div>
           </div>
 
           {/* Buttons */}
