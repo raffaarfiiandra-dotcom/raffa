@@ -62,18 +62,18 @@ export default function LandingPage() {
        <section className="flex-1 max-w-6xl mx-auto px-6 py-12 md:py-20 flex flex-col items-center text-center space-y-6 md:space-y-8">
          
          {/* Banner Badge */}
-         <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-indigo-750 bg-indigo-50 px-3.5 py-1.5 rounded-full uppercase tracking-wider leading-none shadow-xs border border-indigo-100/50">
+         <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-indigo-700 bg-indigo-50 px-3.5 py-1.5 rounded-full uppercase tracking-wider leading-none shadow-xs border border-indigo-100/50">
            <LucideIcon name="Sparkles" size={12} className="text-indigo-600" />
            Aplikasi Manajemen Keuangan Premium
          </span>
  
          {/* Big Headline */}
          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-3xl">
-           Kelola Kekayaan Anda dengan <span className="text-indigo-600 bg-gradient-to-r from-indigo-600 to-indigo-850 bg-clip-text text-transparent">Presisi Finansial</span>
+           Kelola Kekayaan Anda dengan <span className="text-indigo-600 bg-gradient-to-r from-indigo-600 to-indigo-900 bg-clip-text text-transparent">Presisi Finansial</span>
          </h2>
  
          {/* Sub-headline */}
-         <p className="text-sm md:text-base text-slate-450 max-w-2xl leading-relaxed">
+         <p className="text-sm md:text-base text-slate-400 max-w-2xl leading-relaxed">
            Platform fintech modern untuk mencatat transaksi harian, memantau alokasi aset portofolio, memonitor kewajiban hutang piutang, dan mendapatkan analisis AI penghematan secara instan.
          </p>
  
@@ -114,7 +114,7 @@ export default function LandingPage() {
             {/* Mockup Left */}
             <div className="flex-1 space-y-4 text-left w-full">
               <div className="flex items-center justify-between border-b border-slate-50 pb-2">
-                <span className="text-[10px] font-bold text-slate-450 uppercase tracking-widest">Kekayaan Bersih</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Kekayaan Bersih</span>
                 <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">+12.5% YoY</span>
               </div>
               <h3 className="text-2xl md:text-3xl font-extrabold text-slate-800">Rp 128.500.000</h3>

@@ -76,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               if (onAddTransactionClick) onAddTransactionClick();
               if (onClose) onClose();
             }}
-            className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-150 transition-all duration-150 cursor-pointer"
+            className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-100 transition-all duration-150 cursor-pointer"
           >
             <LucideIcon name="Plus" size={20} />
             <span>Add Transaction</span>

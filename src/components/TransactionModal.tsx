@@ -86,7 +86,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     if (!isCategoryManuallySelected && val.trim().length > 2 && categories.length > 0) {
       setAiSuggesting(true);
       // Run AI categorization matching
-      const suggestedId = autoCategorize(val, categories);
+      const suggestedId = autoCategorize(val, categories.filter(c => c.type === type));
       if (suggestedId) {
         setCategoryId(suggestedId);
       }
@@ -294,7 +294,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-850 text-white font-semibold text-xs rounded-xl shadow-md shadow-indigo-150 transition-colors cursor-pointer flex items-center gap-2"
+            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold text-xs rounded-xl shadow-md shadow-indigo-100 transition-colors cursor-pointer flex items-center gap-2"
           >
             {loading ? 'Menyimpan...' : editTransaction ? 'Ubah' : 'Simpan Transaksi'}
           </button>
@@ -303,4 +303,3 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     </Modal>
   );
 };
-export default TransactionModal;

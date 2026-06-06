@@ -110,15 +110,23 @@ export default function DebtsReceivablesPage() {
 
   const handleDelete = async (id: string) => {
     if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
-      await debtsService.delete(id);
-      fetchDebts();
+      try {
+        await debtsService.delete(id);
+        fetchDebts();
+      } catch (err: any) {
+        alert('Gagal menghapus catatan: ' + (err?.message || 'Terjadi kesalahan'));
+      }
     }
   };
 
   const handleToggleSettle = async (record: Debt) => {
     const nextStatus = record.status === 'Lunas' ? 'Belum Lunas' : 'Lunas';
-    await debtsService.update(record.id, { status: nextStatus });
-    fetchDebts();
+    try {
+      await debtsService.update(record.id, { status: nextStatus });
+      fetchDebts();
+    } catch (err: any) {
+      alert('Gagal memperbarui status catatan: ' + (err?.message || 'Terjadi kesalahan'));
+    }
   };
 
   // Calculate stats

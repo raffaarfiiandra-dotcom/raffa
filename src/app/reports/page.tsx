@@ -134,7 +134,10 @@ export default function ReportsPage() {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(e => e.map(val => `"${val}"`).join(','))
+      ...rows.map(e => e.map(val => {
+        const escaped = String(val ?? '').replace(/"/g, '""');
+        return `"${escaped}"`;
+      }).join(','))
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -145,6 +148,7 @@ export default function ReportsPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // 2. Export JSON
@@ -159,6 +163,7 @@ export default function ReportsPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // 3. Export Excel (.xlsx)

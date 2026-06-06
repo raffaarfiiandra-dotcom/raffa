@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LucideIcon } from './ui/LucideIcon';
@@ -23,6 +23,21 @@ export const Header: React.FC<HeaderProps> = ({
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [userProfile, setUserProfile] = useState<Profile | null>(null);
+  const notifRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setShowNotifDropdown(false);
+      }
+    };
+    if (showNotifDropdown) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showNotifDropdown]);
 
   useEffect(() => {
     const fetchHeaderData = async () => {
@@ -90,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Right Side Icons */}
       <div className="flex items-center gap-4">
         {/* Notification Bell */}
-        <div className="relative">
+        <div className="relative" ref={notifRef}>
           <button 
             onClick={() => setShowNotifDropdown(!showNotifDropdown)}
             className="p-2 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition-colors relative cursor-pointer"

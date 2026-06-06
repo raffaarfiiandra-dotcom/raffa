@@ -22,7 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
         className="fixed inset-0 bg-transparent" 
         onClick={onClose}
       />
-      <div className="relative w-full max-w-lg bg-white border border-slate-100 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div className="relative z-10 w-full max-w-lg bg-white border border-slate-100 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-modal-in">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <h3 className="font-bold text-slate-800 text-base">{title}</h3>
@@ -42,5 +42,3 @@ export const Modal: React.FC<ModalProps> = ({
     </div>
   );
 };
-
-export default Modal;

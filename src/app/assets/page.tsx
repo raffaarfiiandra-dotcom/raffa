@@ -145,7 +145,7 @@ export default function AssetsPage() {
         
         <button
           onClick={() => handleOpenForm(null)}
-          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-150 transition-colors cursor-pointer self-start sm:self-center"
+          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-100 transition-colors cursor-pointer self-start sm:self-center"
         >
           <LucideIcon name="Plus" size={16} />
           <span>Tambah Aset</span>

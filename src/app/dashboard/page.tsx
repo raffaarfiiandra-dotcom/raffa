@@ -96,15 +96,20 @@ export default function DashboardPage() {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
   const currentMonthIdx = new Date().getMonth();
   const last6Months = Array.from({length: 6}, (_, i) => {
-    const idx = (currentMonthIdx - 5 + i + 12) % 12;
-    return { name: months[idx], income: 0, expense: 0, index: idx };
+    const d = new Date();
+    d.setDate(1); // avoid end of month overflow issues
+    d.setMonth(currentMonthIdx - 5 + i);
+    const idx = d.getMonth();
+    const year = d.getFullYear();
+    return { name: months[idx], income: 0, expense: 0, index: idx, year: year };
   });
 
   // Populate actual data in chart groups
   transactions.forEach(t => {
     const txDate = new Date(t.date);
     const txMonth = txDate.getMonth();
-    const chartMonth = last6Months.find(m => m.index === txMonth);
+    const txYear = txDate.getFullYear();
+    const chartMonth = last6Months.find(m => m.index === txMonth && m.year === txYear);
     if (chartMonth) {
       if (t.type === 'income') {
         chartMonth.income += Number(t.amount);
@@ -130,7 +135,7 @@ export default function DashboardPage() {
       {/* 3 Main Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Net Balance */}
-        <div className="premium-card p-6 flex items-center justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-150">
+        <div className="premium-card p-6 flex items-center justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-100">
           <div className="space-y-2 z-10">
             <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-wider">Total Saldo (Kekayaan Bersih)</span>
             <h3 className="text-2xl font-bold">
@@ -235,7 +240,7 @@ export default function DashboardPage() {
                       {/* Expense Bar */}
                       <div 
                         style={{ height: `${Math.max(expHeight, 4)}px` }}
-                        className="w-4 bg-rose-400 hover:bg-rose-505 rounded-t-xs transition-all duration-300 relative group-hover:scale-y-105"
+                        className="w-4 bg-rose-400 hover:bg-rose-500 rounded-t-xs transition-all duration-300 relative group-hover:scale-y-105"
                       >
                         <span className="absolute bottom-full left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[9px] font-bold py-1 px-1.5 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-150 shadow-xs mb-1 pointer-events-none whitespace-nowrap z-20">
                           Rp {m.expense.toLocaleString('id-ID')}

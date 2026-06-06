@@ -23,7 +23,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // Authenticate user on mount
+  // Initialize mount state and service worker registration once
   useEffect(() => {
     setIsMounted(true);
     
@@ -34,13 +34,18 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           .then((reg) => console.log('SW Registered', reg.scope))
           .catch((err) => console.log('SW Registration failed', err));
       };
+
       if (document.readyState === 'complete') {
         registerSW();
       } else {
         window.addEventListener('load', registerSW);
+        return () => window.removeEventListener('load', registerSW);
       }
     }
+  }, []);
 
+  // Handle route authentication checks
+  useEffect(() => {
     const checkAuth = async () => {
       // Allow landing page, login, and register screens to bypass check
       if (pathname === '/' || pathname === '/login' || pathname === '/register') {

@@ -30,11 +30,16 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
 
-    const res = await authService.register(email, password, fullName);
-    if (res.success) {
-      router.push('/dashboard');
-    } else {
-      setError(res.error || 'Terjadi kesalahan saat pendaftaran');
+    try {
+      const res = await authService.register(email, password, fullName);
+      if (res.success) {
+        router.push('/dashboard');
+      } else {
+        setError(res.error || 'Terjadi kesalahan saat pendaftaran');
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Registrasi gagal, silakan coba lagi');
       setLoading(false);
     }
   };

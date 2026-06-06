@@ -29,11 +29,16 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
-    const res = await authService.login(email, password);
-    if (res.success) {
-      router.push('/dashboard');
-    } else {
-      setError(res.error || 'Terjadi kesalahan');
+    try {
+      const res = await authService.login(email, password);
+      if (res.success) {
+        router.push('/dashboard');
+      } else {
+        setError(res.error || 'Terjadi kesalahan');
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Koneksi gagal, silakan coba lagi');
       setLoading(false);
     }
   };
@@ -42,11 +47,16 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setLoading(true);
     setError('');
-    const res = await authService.loginWithGoogle();
-    if (res.success) {
-      router.push('/dashboard');
-    } else {
-      setError(res.error || 'Google login failed');
+    try {
+      const res = await authService.loginWithGoogle();
+      if (res.success) {
+        router.push('/dashboard');
+      } else {
+        setError(res.error || 'Google login failed');
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Google login failed');
       setLoading(false);
     }
   };

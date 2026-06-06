@@ -157,7 +157,7 @@ export default function SettingsPage() {
   };
 
   const availableIcons = ['Briefcase', 'TrendingUp', 'DollarSign', 'Utensils', 'Car', 'ShoppingBag', 'Film', 'HeartPulse', 'CreditCard', 'Home', 'GraduationCap', 'Gift', 'Smartphone', 'Gamepad2'];
-  const availableColors = ['#10B981', '#3B82F6', '#EF4444', '#F59E0B', '#EC4899', '#8B5CF6', '#14B8A6', '#6366F1', '#6B7280', '#06B6D4', '#F43F5E', '#10B981'];
+  const availableColors = ['#10B981', '#3B82F6', '#EF4444', '#F59E0B', '#EC4899', '#8B5CF6', '#14B8A6', '#6366F1', '#6B7280', '#06B6D4', '#F43F5E'];
 
   if (loading) {
     return (
@@ -284,7 +284,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={savingPref}
-                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-750 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
                   {savingPref ? 'Menyimpan...' : 'Simpan Perubahan'}
                 </button>
@@ -358,7 +358,7 @@ export default function SettingsPage() {
                 {goals.length === 0 ? (
                   <div className="text-center py-12">
                     <LucideIcon name="Target" className="mx-auto text-slate-200 mb-2" size={36} />
-                    <p className="text-xs text-slate-450 font-semibold">Belum membuat target keuangan</p>
+                    <p className="text-xs text-slate-400 font-semibold">Belum membuat target keuangan</p>
                   </div>
                 ) : (
                   goals.map((goal) => {

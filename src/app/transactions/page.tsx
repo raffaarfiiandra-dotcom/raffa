@@ -131,7 +131,7 @@ export default function TransactionsPage() {
             setEditTx(null);
             setIsModalOpen(true);
           }}
-          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-850 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-150 transition-colors cursor-pointer"
+          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-100 transition-colors cursor-pointer"
         >
           <LucideIcon name="Plus" size={16} />
           <span>Tambah Transaksi</span>
@@ -228,7 +228,7 @@ export default function TransactionsPage() {
           <div className="flex justify-end pt-1">
             <button
               onClick={handleResetFilters}
-              className="text-[11px] font-bold text-rose-500 hover:text-rose-650 flex items-center gap-1.5 cursor-pointer"
+              className="text-[11px] font-bold text-rose-500 hover:text-rose-700 flex items-center gap-1.5 cursor-pointer"
             >
               <LucideIcon name="RefreshCw" size={12} />
               <span>Bersihkan Filter</span>
@@ -322,14 +322,14 @@ export default function TransactionsPage() {
                       <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleEditClick(tx)}
-                          className="p-1 bg-slate-55 hover:bg-indigo-50 hover:text-indigo-600 text-slate-500 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                          className="p-1 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-500 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
                           title="Ubah"
                         >
                           <LucideIcon name="Edit3" size={14} />
                         </button>
                         <button
                           onClick={() => handleDelete(tx.id)}
-                          className="p-1 bg-slate-55 hover:bg-rose-50 hover:text-rose-600 text-slate-500 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
+                          className="p-1 bg-slate-50 hover:bg-rose-50 hover:text-rose-600 text-slate-500 rounded-lg transition-colors cursor-pointer inline-flex items-center justify-center"
                           title="Hapus"
                         >
                           <LucideIcon name="Trash2" size={14} />

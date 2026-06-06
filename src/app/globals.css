@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  --font-sans: var(--font-geist-sans);
   --background: #f8fafc; /* light slate background */
   --foreground: #0f172a; /* slate 900 */
   --card: #ffffff;
@@ -158,4 +159,20 @@ input[type="date"].premium-input::-webkit-calendar-picker-indicator:hover {
   border-color: #4f46e5; /* indigo-600 */
   background-color: #ffffff;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Modal Animations */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
