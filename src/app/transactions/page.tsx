@@ -140,9 +140,9 @@ export default function TransactionsPage() {
 
       {/* Filter Options */}
       <div className="premium-card p-5 bg-white space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 items-end">
+        <div className="flex flex-wrap items-end gap-4">
           {/* Keyword Search */}
-          <div className="space-y-1.5 w-full">
+          <div className="space-y-1.5 flex-1 min-w-[200px]">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Cari Transaksi</span>
             <div className="relative">
               <LucideIcon name="Search" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
@@ -160,7 +160,7 @@ export default function TransactionsPage() {
           </div>
 
           {/* Type Select */}
-          <div className="space-y-1.5 w-full">
+          <div className="space-y-1.5 flex-1 min-w-[150px]">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tipe</span>
             <select
               value={selectedType}
@@ -177,7 +177,7 @@ export default function TransactionsPage() {
           </div>
 
           {/* Category Select */}
-          <div className="space-y-1.5 w-full">
+          <div className="space-y-1.5 flex-1 min-w-[150px]">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kategori</span>
             <select
               value={selectedCategory}
@@ -195,7 +195,7 @@ export default function TransactionsPage() {
           </div>
 
           {/* Start Date */}
-          <div className="space-y-1.5 w-full">
+          <div className="space-y-1.5 flex-1 min-w-[150px]">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Mulai Tanggal</span>
             <input
               type="date"
@@ -204,12 +204,12 @@ export default function TransactionsPage() {
                 setStartDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600 w-full"
+              className="premium-input text-slate-700"
             />
           </div>
 
           {/* End Date */}
-          <div className="space-y-1.5 w-full">
+          <div className="space-y-1.5 flex-1 min-w-[150px]">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sampai Tanggal</span>
             <input
               type="date"
@@ -218,7 +218,7 @@ export default function TransactionsPage() {
                 setEndDate(e.target.value);
                 setCurrentPage(1);
               }}
-              className="premium-input text-slate-600 w-full"
+              className="premium-input text-slate-700"
             />
           </div>
         </div>

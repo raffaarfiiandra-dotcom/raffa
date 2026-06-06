@@ -94,8 +94,8 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
+        <div className="flex flex-wrap gap-4">
+          <div className="flex-1 min-w-[200px]">
             <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Tanggal</label>
             <input
               type="date"
@@ -105,7 +105,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
               className="premium-input text-slate-700"
             />
           </div>
-          <div>
+          <div className="flex-1 min-w-[200px]">
             <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Catatan (Opsional)</label>
             <input
               type="text"

@@ -167,36 +167,23 @@ export default function DashboardPage() {
       )}
 
       {/* 3 Main Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Net Balance */}
         <div className="premium-card p-6 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-100 min-h-[160px]">
-          <div className="flex items-start justify-between z-10 w-full mb-4">
-            <div className="space-y-1">
-              <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-wider">Total Saldo (Semua Akun)</span>
-              <h3 className="text-2xl font-bold">
-                Rp {totalAccounts.toLocaleString('id-ID')}
-              </h3>
-            </div>
-            <div className="p-2.5 bg-white/10 rounded-xl">
+          <div className="flex flex-wrap items-start justify-between z-10 w-full mb-4 gap-2">
+            <div className="p-3 bg-white/10 rounded-2xl flex items-center justify-center">
               <LucideIcon name="Wallet" size={24} className="text-white" />
             </div>
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-indigo-100 bg-white/10 border border-indigo-400/30 px-2 py-1 rounded-lg uppercase leading-none">
+              Semua Akun
+            </span>
           </div>
           
-          <div className="z-10 mt-auto">
-            <div className="flex items-center justify-between text-[10px] text-indigo-200 font-medium mb-2 border-b border-white/10 pb-1">
-              <span>Rincian Akun:</span>
-              <Link href="/accounts" className="hover:text-white transition-colors">Kelola &rarr;</Link>
-            </div>
-            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
-              {accounts.map(acc => (
-                <div key={acc.id} className="whitespace-nowrap bg-white/10 rounded-md px-2 py-1 text-[10px]">
-                  <span className="font-semibold">{acc.name}</span> <span className="opacity-80">Rp {acc.balance.toLocaleString('id-ID')}</span>
-                </div>
-              ))}
-              {accounts.length === 0 && (
-                <div className="text-[10px] italic opacity-80">Belum ada akun</div>
-              )}
-            </div>
+          <div className="space-y-1 z-10 mt-auto">
+            <span className="text-[11px] font-bold text-indigo-200 uppercase tracking-wider">Total Saldo</span>
+            <h3 className="text-2xl font-bold">
+              Rp {totalAccounts.toLocaleString('id-ID')}
+            </h3>
           </div>
 
           {/* Decorative shapes */}
@@ -205,36 +192,40 @@ export default function DashboardPage() {
         </div>
 
         {/* Income Card */}
-        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-200/80">
-          <div className="space-y-2">
+        <div className="premium-card p-6 flex flex-col justify-between bg-white border-slate-200/80 min-h-[160px]">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
+            <div className="p-3 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+              <LucideIcon name="ArrowDownLeft" size={24} />
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg leading-none uppercase">
+              <LucideIcon name="TrendingUp" size={10} />
+              Bulan Ini
+            </span>
+          </div>
+          <div className="space-y-1 mt-auto">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pemasukan</span>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-100/50 px-2 py-0.5 rounded-full leading-none">
-              <LucideIcon name="TrendingUp" size={10} />
-              Pemasukan Bulan Ini
-            </span>
-          </div>
-          <div className="p-3 bg-emerald-100/50 text-emerald-700 rounded-xl">
-            <LucideIcon name="ArrowDownLeft" size={26} />
           </div>
         </div>
 
         {/* Expense Card */}
-        <div className="premium-card p-6 flex items-center justify-between bg-white border-slate-200/80">
-          <div className="space-y-2">
+        <div className="premium-card p-6 flex flex-col justify-between bg-white border-slate-200/80 min-h-[160px]">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
+            <div className="p-3 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center">
+              <LucideIcon name="ArrowUpRight" size={24} />
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-[9px] font-bold text-rose-700 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg leading-none uppercase">
+              <LucideIcon name="TrendingDown" size={10} />
+              Terkumpul
+            </span>
+          </div>
+          <div className="space-y-1 mt-auto">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pengeluaran</span>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-700 bg-rose-100/50 px-2 py-0.5 rounded-full leading-none">
-              <LucideIcon name="TrendingDown" size={10} />
-              Pengeluaran Terkumpul
-            </span>
-          </div>
-          <div className="p-3 bg-rose-100/50 text-rose-700 rounded-xl">
-            <LucideIcon name="ArrowUpRight" size={26} />
           </div>
         </div>
       </div>

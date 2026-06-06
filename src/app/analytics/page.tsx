@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {/* Income Comp */}
         <div className="premium-card p-5 bg-white">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <div className="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg"><LucideIcon name="TrendingUp" size={16} /></div>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pemasukan Bulan Ini</span>
           </div>
@@ -163,7 +163,7 @@ export default function AnalyticsPage() {
 
         {/* Expense Comp */}
         <div className="premium-card p-5 bg-white">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <div className="p-1.5 bg-rose-50 text-rose-600 rounded-lg"><LucideIcon name="TrendingDown" size={16} /></div>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pengeluaran Bulan Ini</span>
           </div>
@@ -178,7 +178,7 @@ export default function AnalyticsPage() {
 
         {/* Daily Average */}
         <div className="premium-card p-5 bg-white">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><LucideIcon name="Calendar" size={16} /></div>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Rata-rata Harian</span>
           </div>
@@ -188,7 +188,7 @@ export default function AnalyticsPage() {
 
         {/* Savings Rate */}
         <div className="premium-card p-5 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <div className="p-1.5 bg-white/10 rounded-lg"><LucideIcon name="PiggyBank" size={16} /></div>
             <span className="text-[10px] font-bold text-indigo-200 uppercase tracking-wider">Tingkat Tabungan</span>
           </div>

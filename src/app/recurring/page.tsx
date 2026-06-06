@@ -332,8 +332,8 @@ export default function RecurringPage() {
           </div>
 
           {/* Frequency & Start Date */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Frekuensi Jadwal</label>
               <select
                 value={frequency}
@@ -346,7 +346,7 @@ export default function RecurringPage() {
                 <option value="yearly">Tahunan</option>
               </select>
             </div>
-            <div>
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Tanggal Mulai / Eksekusi</label>
               <input
                 type="date"

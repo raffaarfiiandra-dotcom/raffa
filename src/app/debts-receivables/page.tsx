@@ -504,17 +504,17 @@ export default function DebtsReceivablesPage() {
           </div>
 
           {/* Due date & Status grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+          <div className="flex flex-wrap gap-4">
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Tanggal Jatuh Tempo</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="premium-input text-slate-600"
+                className="premium-input text-slate-700"
               />
             </div>
-            <div>
+            <div className="flex-1 min-w-[200px]">
               <label className="block text-[11px] font-semibold text-slate-500 uppercase mb-1.5">Status</label>
               <select
                 value={status}
