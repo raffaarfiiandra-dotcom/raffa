@@ -182,51 +182,60 @@ export default function DebtsReceivablesPage() {
         </button>
       </div>
 
-      {/* 3 Metric Card Summary (Matching exact screenshots) */}
+      {/* 3 Metric Card Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Hutang */}
-        <div className="premium-card p-6 bg-white border-slate-200/80 flex items-center justify-between">
-          <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-100/50 px-2 py-0.5 rounded-full uppercase leading-none">
+        <div className="premium-card p-6 bg-white border-slate-200/80 flex flex-col justify-between">
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3.5 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center">
+              <LucideIcon name="ArrowDown" size={24} />
+            </div>
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg uppercase leading-none">
               Kewajiban
             </span>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Hutang</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Hutang</p>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalDebt.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3.5 bg-rose-100/50 text-rose-700 rounded-2xl">
-            <LucideIcon name="ArrowDown" size={24} />
-          </div>
         </div>
 
         {/* Total Piutang */}
-        <div className="premium-card p-6 bg-white border-slate-200/80 flex items-center justify-between">
-          <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-100/50 px-2 py-0.5 rounded-full uppercase leading-none">
+        <div className="premium-card p-6 bg-white border-slate-200/80 flex flex-col justify-between">
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3.5 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+              <LucideIcon name="ArrowUp" size={24} />
+            </div>
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg uppercase leading-none">
               Aset Berjalan
             </span>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">Total Piutang</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Piutang</p>
             <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalReceivable.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3.5 bg-emerald-100/50 text-emerald-700 rounded-2xl">
-            <LucideIcon name="ArrowUp" size={24} />
-          </div>
         </div>
 
         {/* Selisih Bersih */}
-        <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/20 to-indigo-100/10 border-indigo-200/80 flex items-center justify-between">
-          <div className="space-y-2">
-            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">Selisih Bersih (Piutang - Hutang)</p>
+        <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/50 to-indigo-100/30 border-indigo-200/80 flex flex-col justify-between">
+          <div className="flex items-start justify-between mb-4">
+            <div className={`p-3.5 rounded-2xl flex items-center justify-center ${netDiff >= 0 ? 'bg-indigo-100 text-indigo-600' : 'bg-rose-100 text-rose-600'}`}>
+              <LucideIcon name="Scale" size={24} />
+            </div>
+            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-1 rounded-lg border uppercase leading-none ${netDiff >= 0 ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-rose-700 bg-rose-50 border-rose-200'}`}>
+              <LucideIcon name={netDiff >= 0 ? 'CheckCircle2' : 'AlertCircle'} size={10} />
+              {netDiff >= 0 ? 'Posisi Positif' : 'Posisi Negatif'}
+            </span>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">Selisih Bersih</p>
             <h3 className="text-2xl font-bold text-indigo-950">
               Rp {netDiff.toLocaleString('id-ID')}
             </h3>
-            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${netDiff >= 0 ? 'text-emerald-700 bg-emerald-100/50' : 'text-rose-700 bg-rose-100/50'}`}>
-              <LucideIcon name={netDiff >= 0 ? 'CheckCircle2' : 'AlertCircle'} size={10} />
-              {netDiff >= 0 ? 'Posisi Keuangan Positif' : 'Posisi Keuangan Negatif'}
-            </span>
           </div>
         </div>
       </div>
@@ -237,7 +246,7 @@ export default function DebtsReceivablesPage() {
         <div className="flex bg-slate-100/80 p-1 rounded-xl border border-slate-200/50">
           <button
             onClick={() => setFilterType('all')}
-            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            className={`px-4 py-1.5 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
               filterType === 'all' 
                 ? 'bg-white text-indigo-600 shadow-xs' 
                 : 'text-slate-500 hover:text-slate-800'
@@ -247,7 +256,7 @@ export default function DebtsReceivablesPage() {
           </button>
           <button
             onClick={() => setFilterType('debt')}
-            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            className={`px-4 py-1.5 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
               filterType === 'debt' 
                 ? 'bg-white text-indigo-600 shadow-xs' 
                 : 'text-slate-500 hover:text-slate-800'
@@ -257,7 +266,7 @@ export default function DebtsReceivablesPage() {
           </button>
           <button
             onClick={() => setFilterType('receivable')}
-            className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+            className={`px-4 py-1.5 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
               filterType === 'receivable' 
                 ? 'bg-white text-indigo-600 shadow-xs' 
                 : 'text-slate-500 hover:text-slate-800'
@@ -435,7 +444,7 @@ export default function DebtsReceivablesPage() {
             <button
               type="button"
               onClick={() => setType('debt')}
-              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 type === 'debt' 
                   ? 'bg-white text-rose-600 shadow-xs' 
                   : 'text-slate-500 hover:text-slate-700'
@@ -446,7 +455,7 @@ export default function DebtsReceivablesPage() {
             <button
               type="button"
               onClick={() => setType('receivable')}
-              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 type === 'receivable' 
                   ? 'bg-white text-emerald-600 shadow-xs' 
                   : 'text-slate-500 hover:text-slate-700'
@@ -536,14 +545,14 @@ export default function DebtsReceivablesPage() {
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              className="px-5 py-2.5 flex items-center justify-center border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="px-5 py-2.5 flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {saving ? 'Menyimpan...' : 'Simpan Catatan'}
             </button>

@@ -300,39 +300,54 @@ export default function ReportsPage() {
 
       {/* 3 Metric Card summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
+        <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
+              <LucideIcon name="ArrowDownLeft" size={22} />
+            </div>
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-lg uppercase leading-none">
+              Pemasukan
+            </span>
+          </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pemasukan Periode Ini</span>
-            <h3 className="text-xl font-bold text-emerald-600">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Periode Ini</span>
+            <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3 bg-emerald-100/50 text-emerald-700 rounded-xl">
-            <LucideIcon name="ArrowDownLeft" size={22} />
-          </div>
         </div>
 
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
+        <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center">
+              <LucideIcon name="ArrowUpRight" size={22} />
+            </div>
+            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-rose-600 bg-rose-50 border border-rose-100 px-2 py-1 rounded-lg uppercase leading-none">
+              Pengeluaran
+            </span>
+          </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pengeluaran Periode Ini</span>
-            <h3 className="text-xl font-bold text-rose-500">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Periode Ini</span>
+            <h3 className="text-2xl font-bold text-slate-800">
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
           </div>
-          <div className="p-3 bg-rose-100/50 text-rose-700 rounded-xl">
-            <LucideIcon name="ArrowUpRight" size={22} />
-          </div>
         </div>
 
-        <div className="premium-card p-6 bg-white flex items-center justify-between border-slate-200/80">
+        <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
+          <div className="flex items-start justify-between mb-4">
+            <div className={`p-3 rounded-xl flex items-center justify-center ${cashflow >= 0 ? 'bg-indigo-100 text-indigo-700' : 'bg-rose-100 text-rose-700'}`}>
+              <LucideIcon name={cashflow >= 0 ? 'TrendingUp' : 'TrendingDown'} size={22} />
+            </div>
+            <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-1 rounded-lg border uppercase leading-none ${cashflow >= 0 ? 'text-indigo-700 bg-indigo-50 border-indigo-200' : 'text-rose-700 bg-rose-50 border-rose-200'}`}>
+              {cashflow >= 0 ? 'Surplus' : 'Defisit'}
+            </span>
+          </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Arus Kas Bersih (Net)</span>
-            <h3 className={`text-xl font-bold ${cashflow >= 0 ? 'text-indigo-600' : 'text-rose-600'}`}>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Arus Kas Bersih</span>
+            <h3 className="text-2xl font-bold text-slate-800">
               Rp {cashflow.toLocaleString('id-ID')}
             </h3>
-          </div>
-          <div className={`p-3 rounded-xl ${cashflow >= 0 ? 'bg-indigo-100/50 text-indigo-700' : 'bg-rose-100/50 text-rose-700'}`}>
-            <LucideIcon name={cashflow >= 0 ? 'TrendingUp' : 'TrendingDown'} size={22} />
           </div>
         </div>
       </div>

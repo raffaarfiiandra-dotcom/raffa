@@ -254,7 +254,7 @@ export default function RecurringPage() {
             <button
               type="button"
               onClick={() => setType('expense')}
-              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 type === 'expense' 
                   ? 'bg-white text-rose-600 shadow-xs' 
                   : 'text-slate-500 hover:text-slate-700'
@@ -265,7 +265,7 @@ export default function RecurringPage() {
             <button
               type="button"
               onClick={() => setType('income')}
-              className={`py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                 type === 'income' 
                   ? 'bg-white text-emerald-600 shadow-xs' 
                   : 'text-slate-500 hover:text-slate-700'
@@ -363,14 +363,14 @@ export default function RecurringPage() {
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-5 py-2.5 border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              className="px-5 py-2.5 flex items-center justify-center border border-slate-200 text-slate-500 hover:bg-slate-50 font-bold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="px-5 py-2.5 flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {saving ? 'Menyimpan...' : 'Simpan Jadwal'}
             </button>
