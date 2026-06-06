@@ -276,8 +276,8 @@ export default function ReportsPage() {
 
       {/* Date custom inputs (Shown only when custom is toggled) */}
       {rangeType === 'custom' && (
-        <div className="premium-card p-4 bg-white grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
+        <div className="premium-card p-4 bg-white flex flex-wrap gap-4">
+          <div className="flex-1 min-w-[200px]">
             <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Mulai Tanggal</label>
             <input
               type="date"
@@ -286,7 +286,7 @@ export default function ReportsPage() {
               className="premium-input text-slate-700"
             />
           </div>
-          <div>
+          <div className="flex-1 min-w-[200px]">
             <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Sampai Tanggal</label>
             <input
               type="date"
