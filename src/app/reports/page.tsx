@@ -276,14 +276,14 @@ export default function ReportsPage() {
 
       {/* Date custom inputs (Shown only when custom is toggled) */}
       {rangeType === 'custom' && (
-        <div className="premium-card p-4 bg-white grid grid-cols-2 gap-4 max-w-md">
+        <div className="premium-card p-4 bg-white grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
           <div>
             <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Mulai Tanggal</label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden"
+              className="premium-input text-slate-700"
             />
           </div>
           <div>
@@ -292,7 +292,7 @@ export default function ReportsPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:outline-hidden"
+              className="premium-input text-slate-700"
             />
           </div>
         </div>
