@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Modal } from './ui/Modal';
-import { categoriesService, transactionsService } from '@/lib/db';
-import { Category, Transaction } from '@/lib/db/types';
+import { categoriesService, transactionsService, accountsService } from '@/lib/db';
+import { Category, Transaction, Account } from '@/lib/db/types';
 import { autoCategorize } from '@/lib/ai-engine';
 import { LucideIcon } from './ui/LucideIcon';
 
@@ -29,10 +29,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   editTransaction = null
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState<'income' | 'expense'>('expense');
   const [categoryId, setCategoryId] = useState('');
+  const [accountId, setAccountId] = useState('');
   const [date, setDate] = useState('');
   const [receiptBase64, setReceiptBase64] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -40,12 +42,21 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const [isCategoryManuallySelected, setIsCategoryManuallySelected] = useState(false);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const list = await categoriesService.list();
-      setCategories(list);
+    const fetchData = async () => {
+      const [catList, accList] = await Promise.all([
+        categoriesService.list(),
+        accountsService.list()
+      ]);
+      setCategories(catList);
+      setAccounts(accList);
+      
+      // Auto-select first account if not editing
+      if (!editTransaction && accList.length > 0) {
+        setAccountId(accList[0].id);
+      }
     };
-    fetchCategories();
-  }, [isOpen]);
+    fetchData();
+  }, [isOpen, editTransaction]);
 
   useEffect(() => {
     if (editTransaction) {
@@ -53,6 +64,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setDescription(editTransaction.description);
       setType(editTransaction.type);
       setCategoryId(editTransaction.category_id || '');
+      setAccountId(editTransaction.account_id || '');
       setDate(editTransaction.date);
       setReceiptBase64(editTransaction.receipt_url || '');
       setIsCategoryManuallySelected(true);
@@ -61,6 +73,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       setDescription('');
       setType('expense');
       setCategoryId('');
+      // accountId is set in fetchData effect
       setDate(getLocalDateString());
       setReceiptBase64('');
       setIsCategoryManuallySelected(false);
@@ -109,6 +122,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     e.preventDefault();
     if (!amount || Number(amount) <= 0) return alert('Jumlah nominal harus valid.');
     if (!categoryId) return alert('Silakan pilih kategori.');
+    if (!accountId) return alert('Silakan pilih akun.');
 
     setLoading(true);
     try {
@@ -117,6 +131,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         description,
         type,
         category_id: categoryId,
+        account_id: accountId,
         date,
         receipt_url: receiptBase64 || undefined
       };
@@ -228,6 +243,24 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           </div>
 
           <div>
+            <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Akun</label>
+            <select
+              value={accountId}
+              onChange={(e) => setAccountId(e.target.value)}
+              required
+              className="premium-select"
+            >
+              <option value="">Pilih Akun</option>
+              {accounts.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.name} (Rp {a.balance.toLocaleString('id-ID')})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div>
             <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Tanggal</label>
             <input
               type="date"
@@ -237,7 +270,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               className="premium-input text-slate-700"
             />
           </div>
-        </div>
 
         {/* Upload Receipt */}
         <div>

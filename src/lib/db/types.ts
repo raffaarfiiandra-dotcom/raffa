@@ -19,6 +19,7 @@ export interface Category {
 export interface Transaction {
   id: string;
   user_id: string;
+  account_id?: string; // Newly added for Multi-Account
   category_id?: string;
   amount: number;
   description: string;
@@ -79,4 +80,52 @@ export interface Settings {
   currency: string;
   theme: 'light' | 'dark';
   notifications_enabled: boolean;
+}
+
+export interface Account {
+  id: string;
+  user_id: string;
+  name: string;
+  type: 'cash' | 'bank' | 'e-wallet' | 'investment' | 'other';
+  balance: number;
+  icon: string;
+  created_at?: string;
+}
+
+export interface AccountTransfer {
+  id: string;
+  user_id: string;
+  from_account_id: string;
+  to_account_id: string;
+  amount: number;
+  notes?: string;
+  transfer_date: string; // YYYY-MM-DD
+  created_at?: string;
+}
+
+export interface NetWorthHistory {
+  id: string;
+  user_id: string;
+  date: string; // YYYY-MM-DD
+  net_worth: number;
+}
+
+export interface RecurringTransaction {
+  id: string;
+  user_id: string;
+  account_id: string;
+  category_id?: string;
+  type: 'income' | 'expense';
+  amount: number;
+  description: string;
+  frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  start_date: string;
+  next_run_date: string;
+  last_run_date?: string;
+  is_active: boolean;
+  created_at?: string;
+  
+  // Joined fields
+  account?: Account;
+  category?: Category;
 }

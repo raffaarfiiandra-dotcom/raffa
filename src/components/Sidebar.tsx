@@ -29,10 +29,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navItems = [
     { name: 'Dashboard', href: '/dashboard', icon: 'LayoutDashboard' },
+    { name: 'Accounts & Wallet', href: '/accounts', icon: 'Wallet' },
     { name: 'Transactions', href: '/transactions', icon: 'ArrowLeftRight' },
+    { name: 'Analytics', href: '/analytics', icon: 'PieChart' },
     { name: 'Debts & Receivables', href: '/debts-receivables', icon: 'Coins' },
     { name: 'Assets', href: '/assets', icon: 'Building2' },
+    { name: 'Net Worth', href: '/net-worth', icon: 'TrendingUp' },
     { name: 'Reports', href: '/reports', icon: 'BarChart3' },
+    { name: 'Recurring', href: '/recurring', icon: 'RefreshCcw' },
     { name: 'Settings', href: '/settings', icon: 'Settings' },
   ];
 

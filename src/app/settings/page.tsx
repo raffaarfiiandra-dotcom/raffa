@@ -24,6 +24,7 @@ export default function SettingsPage() {
 
   // Categories form states
   const [isCatModalOpen, setIsCatModalOpen] = useState(false);
+  const [editCategoryId, setEditCategoryId] = useState<string | null>(null);
   const [catName, setCatName] = useState('');
   const [catType, setCatType] = useState<'income' | 'expense'>('expense');
   const [catColor, setCatColor] = useState('#4F46E5');
@@ -93,22 +94,39 @@ export default function SettingsPage() {
     if (!catName.trim()) return alert('Nama kategori harus diisi');
     setSavingCat(true);
     try {
-      await categoriesService.create({
+      const payload = {
         name: catName,
         type: catType as any,
         color: catColor,
         icon: catIcon
-      });
+      };
+
+      if (editCategoryId) {
+        await categoriesService.update(editCategoryId, payload);
+      } else {
+        await categoriesService.create(payload);
+      }
+
       const list = await categoriesService.list();
       setCategories(list);
       setIsCatModalOpen(false);
       setCatName('');
+      setEditCategoryId(null);
     } catch (e) {
       console.error(e);
       alert('Gagal menyimpan kategori');
     } finally {
       setSavingCat(false);
     }
+  };
+
+  const handleEditCategory = (c: Category) => {
+    setEditCategoryId(c.id);
+    setCatName(c.name);
+    setCatType(c.type as any);
+    setCatColor(c.color || '#4F46E5');
+    setCatIcon(c.icon || 'HelpCircle');
+    setIsCatModalOpen(true);
   };
 
   const handleDeleteCategory = async (id: string) => {
@@ -298,7 +316,14 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between border-b border-slate-50 pb-3">
                 <h3 className="font-bold text-slate-800 text-sm">Kelola Kategori Kustom</h3>
                 <button
-                  onClick={() => setIsCatModalOpen(true)}
+                  onClick={() => {
+                    setEditCategoryId(null);
+                    setCatName('');
+                    setCatType('expense');
+                    setCatColor('#4F46E5');
+                    setCatIcon('HelpCircle');
+                    setIsCatModalOpen(true);
+                  }}
                   className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer shadow-xs"
                 >
                   <LucideIcon name="Plus" size={14} />
@@ -325,14 +350,23 @@ export default function SettingsPage() {
                         <span className="text-[9px] font-bold text-slate-400 capitalize">{c.type === 'income' ? 'Pemasukan' : c.type === 'expense' ? 'Pengeluaran' : 'Aset'}</span>
                       </div>
                     </div>
-                    {/* Delete action (Only allow deleting user created ones, mock user IDs) */}
-                    <button
-                      onClick={() => handleDeleteCategory(c.id)}
-                      className="p-1 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
-                      title="Hapus"
-                    >
-                      <LucideIcon name="Trash2" size={14} />
-                    </button>
+                    {/* Edit/Delete actions */}
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleEditCategory(c)}
+                        className="p-1.5 hover:bg-slate-100 text-slate-400 hover:text-indigo-600 rounded-lg transition-colors cursor-pointer"
+                        title="Ubah"
+                      >
+                        <LucideIcon name="Edit3" size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCategory(c.id)}
+                        className="p-1.5 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
+                        title="Hapus"
+                      >
+                        <LucideIcon name="Trash2" size={14} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -412,7 +446,7 @@ export default function SettingsPage() {
       <Modal
         isOpen={isCatModalOpen}
         onClose={() => setIsCatModalOpen(false)}
-        title="Buat Kategori Kustom Baru"
+        title={editCategoryId ? "Ubah Kategori" : "Buat Kategori Kustom Baru"}
       >
         <form onSubmit={handleAddCategory} className="space-y-4">
           <div>

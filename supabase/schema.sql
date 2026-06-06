@@ -77,6 +77,7 @@ create table if not exists public.transactions (
   id uuid default uuid_generate_v4() primary key,
   user_id uuid references public.profiles(id) on delete cascade not null,
   category_id uuid references public.categories(id) on delete set null,
+  account_id uuid references public.accounts(id) on delete set null,
   amount numeric not null check (amount >= 0),
   description text,
   type text not null check (type in ('income', 'expense')),
@@ -245,4 +246,125 @@ create policy "Users can insert own settings"
 
 create policy "Users can update own settings" 
   on public.settings for update 
+  using (auth.uid() = user_id);
+
+-- 9. ACCOUNTS Table
+create table if not exists public.accounts (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  name text not null,
+  type text not null check (type in ('cash', 'bank', 'e-wallet', 'investment', 'other')),
+  balance numeric default 0 not null,
+  icon text not null default 'Wallet',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table public.accounts enable row level security;
+
+create policy "Users can view own accounts" 
+  on public.accounts for select 
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own accounts" 
+  on public.accounts for insert 
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own accounts" 
+  on public.accounts for update 
+  using (auth.uid() = user_id);
+
+create policy "Users can delete own accounts" 
+  on public.accounts for delete 
+  using (auth.uid() = user_id);
+
+-- 10. ACCOUNT TRANSFERS Table
+create table if not exists public.account_transfers (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  from_account_id uuid references public.accounts(id) on delete cascade not null,
+  to_account_id uuid references public.accounts(id) on delete cascade not null,
+  amount numeric not null check (amount > 0),
+  notes text,
+  transfer_date date default current_date not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table public.account_transfers enable row level security;
+
+create policy "Users can view own transfers" 
+  on public.account_transfers for select 
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own transfers" 
+  on public.account_transfers for insert 
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own transfers" 
+  on public.account_transfers for update 
+  using (auth.uid() = user_id);
+
+create policy "Users can delete own transfers" 
+  on public.account_transfers for delete 
+  using (auth.uid() = user_id);
+
+-- 11. NET WORTH HISTORY Table
+create table if not exists public.net_worth_history (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  date date default current_date not null,
+  net_worth numeric not null,
+  unique(user_id, date)
+);
+
+alter table public.net_worth_history enable row level security;
+
+create policy "Users can view own net worth history" 
+  on public.net_worth_history for select 
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own net worth history" 
+  on public.net_worth_history for insert 
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own net worth history" 
+  on public.net_worth_history for update 
+  using (auth.uid() = user_id);
+
+create policy "Users can delete own net worth history" 
+  on public.net_worth_history for delete 
+  using (auth.uid() = user_id);
+
+-- 12. RECURRING TRANSACTIONS Table
+create table if not exists public.recurring_transactions (
+  id uuid default uuid_generate_v4() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  account_id uuid references public.accounts(id) on delete cascade not null,
+  category_id uuid references public.categories(id) on delete set null,
+  type text not null check (type in ('income', 'expense')),
+  amount numeric not null check (amount > 0),
+  description text not null,
+  frequency text not null check (frequency in ('daily', 'weekly', 'monthly', 'yearly')),
+  start_date date not null,
+  next_run_date date not null,
+  last_run_date date,
+  is_active boolean default true not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table public.recurring_transactions enable row level security;
+
+create policy "Users can view own recurring transactions" 
+  on public.recurring_transactions for select 
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own recurring transactions" 
+  on public.recurring_transactions for insert 
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own recurring transactions" 
+  on public.recurring_transactions for update 
+  using (auth.uid() = user_id);
+
+create policy "Users can delete own recurring transactions" 
+  on public.recurring_transactions for delete 
   using (auth.uid() = user_id);

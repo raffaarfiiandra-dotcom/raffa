@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { TransactionModal } from './TransactionModal';
-import { getSessionUser } from '@/lib/db';
+import { getSessionUser, processRecurringTransactions } from '@/lib/db';
 import { Modal } from './ui/Modal';
 import { LucideIcon } from './ui/LucideIcon';
 
@@ -58,6 +58,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
         router.push('/login');
       } else {
         setAuthLoading(false);
+        // Process any pending recurring transactions in background
+        processRecurringTransactions();
       }
     };
     checkAuth();

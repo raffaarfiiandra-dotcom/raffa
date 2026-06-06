@@ -144,6 +144,27 @@ export default function DebtsReceivablesPage() {
     return matchesType && matchesStatus && matchesSearch;
   });
 
+  const getDueDateStatus = (dueDate: string | undefined, currentStatus: string) => {
+    if (currentStatus === 'Lunas') return { text: 'Lunas', color: 'text-emerald-700 bg-emerald-50' };
+    if (!dueDate) return { text: currentStatus, color: 'text-indigo-700 bg-indigo-50' };
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const due = new Date(dueDate);
+    due.setHours(0,0,0,0);
+    
+    const diffTime = due.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0 || currentStatus === 'Terlambat') {
+      return { text: 'Terlambat', color: 'text-rose-700 bg-rose-50 border border-rose-200' };
+    } else if (diffDays <= 3) {
+      return { text: `H-${diffDays} Jatuh Tempo`, color: 'text-amber-700 bg-amber-50 border border-amber-200' };
+    } else {
+      return { text: 'Belum Lunas', color: 'text-indigo-700 bg-indigo-50' };
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -349,16 +370,14 @@ export default function DebtsReceivablesPage() {
 
                     {/* Status Badge */}
                     <td className="py-4 px-4 text-center">
-                      <span className={`
-                        inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold leading-none
-                        ${item.status === 'Lunas' 
-                          ? 'text-emerald-700 bg-emerald-50' 
-                          : item.status === 'Terlambat' 
-                          ? 'text-rose-700 bg-rose-50' 
-                          : 'text-indigo-700 bg-indigo-50'}
-                      `}>
-                        {item.status}
-                      </span>
+                      {(() => {
+                        const s = getDueDateStatus(item.due_date, item.status);
+                        return (
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold leading-none ${s.color}`}>
+                            {s.text}
+                          </span>
+                        );
+                      })()}
                     </td>
 
                     {/* Actions */}

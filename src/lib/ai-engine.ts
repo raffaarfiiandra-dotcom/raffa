@@ -154,5 +154,45 @@ export const generateInsights = (
     });
   }
 
+  // 4. Month-over-Month Comparison
+  const today = new Date();
+  const thisMonth = today.getMonth();
+  const thisYear = today.getFullYear();
+  const lastMonthDate = new Date(today);
+  lastMonthDate.setMonth(thisMonth - 1);
+  const lastMonth = lastMonthDate.getMonth();
+  const lastMonthYear = lastMonthDate.getFullYear();
+
+  let thisMonthExpense = 0;
+  let lastMonthExpense = 0;
+
+  transactions.forEach(tx => {
+    if (tx.type === 'expense') {
+      const txDate = new Date(tx.date);
+      if (txDate.getMonth() === thisMonth && txDate.getFullYear() === thisYear) {
+        thisMonthExpense += Number(tx.amount);
+      } else if (txDate.getMonth() === lastMonth && txDate.getFullYear() === lastMonthYear) {
+        lastMonthExpense += Number(tx.amount);
+      }
+    }
+  });
+
+  if (lastMonthExpense > 0) {
+    const diff = thisMonthExpense - lastMonthExpense;
+    if (diff > 0) {
+      insights.push({
+        type: 'warning',
+        title: 'Pengeluaran Meningkat',
+        message: `Pengeluaran bulan ini (Rp ${thisMonthExpense.toLocaleString('id-ID')}) naik Rp ${diff.toLocaleString('id-ID')} dibandingkan bulan lalu. Kendalikan pengeluaran harian Anda.`
+      });
+    } else if (diff < 0) {
+      insights.push({
+        type: 'success',
+        title: 'Penghematan Terdeteksi',
+        message: `Luar biasa! Anda berhasil berhemat Rp ${Math.abs(diff).toLocaleString('id-ID')} dibandingkan bulan lalu.`
+      });
+    }
+  }
+
   return insights;
 };

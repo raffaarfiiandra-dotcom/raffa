@@ -7,9 +7,10 @@ import {
   categoriesService, 
   assetsService, 
   debtsService, 
-  goalsService 
+  goalsService,
+  accountsService
 } from '@/lib/db';
-import { Transaction, Category, Asset, Debt, Goal } from '@/lib/db/types';
+import { Transaction, Category, Asset, Debt, Goal, Account } from '@/lib/db/types';
 import { generateInsights, FinancialInsight } from '@/lib/ai-engine';
 import { LucideIcon } from '@/components/ui/LucideIcon';
 
@@ -19,17 +20,19 @@ export default function DashboardPage() {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [debts, setDebts] = useState<Debt[]>([]);
   const [goals, setGoals] = useState<Goal[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [insights, setInsights] = useState<FinancialInsight[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
-      const [txList, catList, assetList, debtList, goalList] = await Promise.all([
+      const [txList, catList, assetList, debtList, goalList, accList] = await Promise.all([
         transactionsService.list(),
         categoriesService.list(),
         assetsService.list(),
         debtsService.list(),
         goalsService.list(),
+        accountsService.list(),
       ]);
 
       setTransactions(txList);
@@ -37,6 +40,7 @@ export default function DashboardPage() {
       setAssets(assetList);
       setDebts(debtList);
       setGoals(goalList);
+      setAccounts(accList);
 
       const generatedInsights = generateInsights(txList, catList, assetList);
       setInsights(generatedInsights);
@@ -79,6 +83,7 @@ export default function DashboardPage() {
   }
 
   // Calculate totals
+  const totalAccounts = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
   const totalAssets = assets.reduce((sum, a) => sum + Number(a.balance), 0);
   const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + Number(t.amount), 0);
   const totalExpense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + Number(t.amount), 0);
@@ -86,9 +91,8 @@ export default function DashboardPage() {
   const totalDebt = debts.filter(d => d.type === 'debt' && d.status !== 'Lunas').reduce((sum, d) => sum + Number(d.amount), 0);
   const totalReceivable = debts.filter(d => d.type === 'receivable' && d.status !== 'Lunas').reduce((sum, d) => sum + Number(d.amount), 0);
 
-  // Net Balance = Assets + Receivables - Debts + (Income - Expense)
-  // Let's make Net Balance sum up these variables
-  const netBalance = totalAssets + totalReceivable - totalDebt + (totalIncome - totalExpense);
+  // Net Balance = Accounts (Cash/Bank) + Assets + Receivables - Debts
+  const netBalance = totalAccounts + totalAssets + totalReceivable - totalDebt;
 
   const recentTransactions = transactions.slice(0, 5);
 
@@ -122,6 +126,19 @@ export default function DashboardPage() {
   // Calculate highest monthly value to scale SVG chart heights
   const maxVal = Math.max(...last6Months.map(m => Math.max(m.income, m.expense)), 100000);
 
+  // Find upcoming debts/receivables (due within 3 days or overdue)
+  const upcomingDebts = debts.filter(d => {
+    if (d.status === 'Lunas') return false;
+    if (!d.due_date) return false;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const due = new Date(d.due_date);
+    due.setHours(0,0,0,0);
+    const diffTime = due.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 3;
+  });
+
   return (
     <div className="space-y-6">
       {/* Top Welcome Title */}
@@ -132,23 +149,59 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {upcomingDebts.length > 0 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-amber-100 text-amber-600 rounded-lg">
+              <LucideIcon name="AlertCircle" size={20} />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-amber-800">Peringatan Jatuh Tempo!</h4>
+              <p className="text-xs text-amber-700 font-medium">Ada {upcomingDebts.length} catatan hutang/piutang yang sudah lewat atau mendekati jatuh tempo (H-3).</p>
+            </div>
+          </div>
+          <Link href="/debts-receivables" className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition-colors whitespace-nowrap shadow-md">
+            Lihat Detail
+          </Link>
+        </div>
+      )}
+
       {/* 3 Main Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Net Balance */}
-        <div className="premium-card p-6 flex items-center justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-100">
-          <div className="space-y-2 z-10">
-            <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-wider">Total Saldo (Kekayaan Bersih)</span>
-            <h3 className="text-2xl font-bold">
-              Rp {netBalance.toLocaleString('id-ID')}
-            </h3>
-            <p className="text-[10px] text-indigo-200 font-medium">Aset & Piutang dikurangi Hutang</p>
+        <div className="premium-card p-6 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-indigo-600 to-indigo-800 text-white border-0 shadow-indigo-100 min-h-[160px]">
+          <div className="flex items-start justify-between z-10 w-full mb-4">
+            <div className="space-y-1">
+              <span className="text-[11px] font-bold text-indigo-100 uppercase tracking-wider">Total Saldo (Semua Akun)</span>
+              <h3 className="text-2xl font-bold">
+                Rp {totalAccounts.toLocaleString('id-ID')}
+              </h3>
+            </div>
+            <div className="p-2.5 bg-white/10 rounded-xl">
+              <LucideIcon name="Wallet" size={24} className="text-white" />
+            </div>
           </div>
-          <div className="p-3 bg-white/10 rounded-xl z-10">
-            <LucideIcon name="Wallet" size={26} className="text-white" />
+          
+          <div className="z-10 mt-auto">
+            <div className="flex items-center justify-between text-[10px] text-indigo-200 font-medium mb-2 border-b border-white/10 pb-1">
+              <span>Rincian Akun:</span>
+              <Link href="/accounts" className="hover:text-white transition-colors">Kelola &rarr;</Link>
+            </div>
+            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+              {accounts.map(acc => (
+                <div key={acc.id} className="whitespace-nowrap bg-white/10 rounded-md px-2 py-1 text-[10px]">
+                  <span className="font-semibold">{acc.name}</span> <span className="opacity-80">Rp {acc.balance.toLocaleString('id-ID')}</span>
+                </div>
+              ))}
+              {accounts.length === 0 && (
+                <div className="text-[10px] italic opacity-80">Belum ada akun</div>
+              )}
+            </div>
           </div>
+
           {/* Decorative shapes */}
-          <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 rounded-full -mr-5 -mb-5" />
-          <div className="absolute left-1/2 top-0 w-16 h-16 bg-white/5 rounded-full -mt-5" />
+          <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 rounded-full -mr-5 -mb-5 pointer-events-none" />
+          <div className="absolute left-1/2 top-0 w-16 h-16 bg-white/5 rounded-full -mt-5 pointer-events-none" />
         </div>
 
         {/* Income Card */}
