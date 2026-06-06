@@ -165,7 +165,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="button"
             onClick={() => setType('expense')}
-            className={`py-2 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer ${
+            className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer ${
               type === 'expense' 
                 ? 'bg-white text-rose-600 shadow-sm border border-rose-50' 
                 : 'text-slate-500 hover:text-slate-700'
@@ -176,7 +176,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="button"
             onClick={() => setType('income')}
-            className={`py-2 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer ${
+            className={`py-2 flex items-center justify-center text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer ${
               type === 'income' 
                 ? 'bg-white text-emerald-600 shadow-sm border border-emerald-50' 
                 : 'text-slate-500 hover:text-slate-700'
@@ -319,7 +319,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+            className="px-5 py-2.5 flex items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
           >
             Batal
           </button>
