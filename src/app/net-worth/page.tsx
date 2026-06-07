@@ -94,7 +94,7 @@ export default function NetWorthPage() {
         <div className="md:col-span-2 premium-card p-6 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white relative overflow-hidden">
           <div className="z-10 relative">
             <span className="text-[11px] font-bold text-indigo-200 uppercase tracking-wider block mb-2">Kekayaan Bersih Saat Ini</span>
-            <h3 className="text-4xl font-black tracking-tight">
+            <h3 className="text-4xl font-black tracking-tight truncate" title={`Rp ${currentNetWorth.toLocaleString('id-ID')}`}>
               Rp {currentNetWorth.toLocaleString('id-ID')}
             </h3>
             

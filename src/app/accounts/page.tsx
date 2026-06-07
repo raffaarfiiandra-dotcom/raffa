@@ -122,10 +122,10 @@ export default function AccountsPage() {
                 <LucideIcon name="Trash2" size={14} />
               </button>
             </div>
-            <div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{acc.type}</span>
-              <h4 className="font-bold text-slate-800 text-sm mb-1">{acc.name}</h4>
-              <p className="text-lg font-bold text-slate-800">
+            <div className="min-w-0 mt-auto">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block truncate">{acc.type}</span>
+              <h4 className="font-bold text-slate-800 text-sm mb-1 truncate">{acc.name}</h4>
+              <p className="text-lg font-bold text-slate-800 truncate" title={`Rp ${acc.balance.toLocaleString('id-ID')}`}>
                 Rp {acc.balance.toLocaleString('id-ID')}
               </p>
             </div>

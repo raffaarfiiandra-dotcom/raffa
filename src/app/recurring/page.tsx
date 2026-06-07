@@ -175,20 +175,20 @@ export default function RecurringPage() {
             <div key={item.id} className="premium-card p-5 bg-white border-slate-200/80 hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2.5 rounded-xl ${item.type === 'income' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-500'}`}>
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className={`p-2.5 rounded-xl shrink-0 ${item.type === 'income' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-500'}`}>
                       <LucideIcon name={item.type === 'income' ? 'TrendingUp' : 'TrendingDown'} size={20} />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-slate-800 leading-snug">{item.description}</h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="text-[10px] font-bold text-slate-400 capitalize">{item.frequency}</span>
-                        <span className="w-1 h-1 bg-slate-300 rounded-full" />
-                        <span className="text-[10px] font-bold text-slate-400">{item.account?.name || 'Unknown Account'}</span>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-sm text-slate-800 leading-snug truncate" title={item.description}>{item.description}</h4>
+                      <div className="flex items-center gap-1.5 mt-0.5 min-w-0">
+                        <span className="text-[10px] font-bold text-slate-400 capitalize shrink-0">{item.frequency}</span>
+                        <span className="w-1 h-1 bg-slate-300 rounded-full shrink-0" />
+                        <span className="text-[10px] font-bold text-slate-400 truncate">{item.account?.name || 'Unknown Account'}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="relative">
+                  <div className="relative shrink-0 ml-2">
                     <button 
                       onClick={() => handleToggleActive(item)}
                       title={item.is_active ? 'Nonaktifkan' : 'Aktifkan'}

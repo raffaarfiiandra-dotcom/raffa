@@ -196,12 +196,12 @@ export default function AssetsPage() {
                     </div>
 
                     {/* Body Info */}
-                    <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{asset.name}</p>
-                      <h3 className="text-xl font-bold text-slate-800">
+                    <div className="space-y-1 min-w-0">
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate" title={asset.name}>{asset.name}</p>
+                      <h3 className="text-xl font-bold text-slate-800 truncate" title={`Rp ${asset.balance.toLocaleString('id-ID')}`}>
                         Rp {asset.balance.toLocaleString('id-ID')}
                       </h3>
-                      <p className="text-[10px] text-slate-400 font-semibold leading-normal">{asset.details || 'Tanpa deskripsi rincian'}</p>
+                      <p className="text-[10px] text-slate-400 font-semibold leading-normal truncate" title={asset.details || 'Tanpa deskripsi rincian'}>{asset.details || 'Tanpa deskripsi rincian'}</p>
                     </div>
                   </div>
 

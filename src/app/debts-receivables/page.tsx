@@ -341,9 +341,9 @@ export default function DebtsReceivablesPage() {
                         <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs shrink-0">
                           {item.contact_name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-xs text-slate-800 leading-snug">{item.contact_name}</h4>
-                          <span className="text-[9px] text-slate-400 font-semibold uppercase mt-0.5 block">{item.reference_no || 'Tanpa Referensi'}</span>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-semibold text-xs text-slate-800 leading-snug truncate" title={item.contact_name}>{item.contact_name}</h4>
+                          <span className="text-[9px] text-slate-400 font-semibold uppercase mt-0.5 block truncate" title={item.reference_no}>{item.reference_no || 'Tanpa Referensi'}</span>
                         </div>
                       </div>
                     </td>

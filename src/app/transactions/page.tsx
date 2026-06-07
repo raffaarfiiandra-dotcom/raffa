@@ -270,10 +270,10 @@ export default function TransactionsPage() {
                 paginatedTransactions.map((tx) => (
                   <tr key={tx.id} className="hover:bg-slate-50/50 transition-colors">
                     {/* Desc */}
-                    <td className="py-4 px-6">
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-xs text-slate-800">{tx.description}</span>
-                        <span className="text-[9px] font-bold text-slate-400 mt-0.5 sm:hidden">{tx.category?.name}</span>
+                    <td className="py-4 px-6 max-w-[200px] sm:max-w-[300px]">
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-semibold text-xs text-slate-800 truncate" title={tx.description}>{tx.description}</span>
+                        <span className="text-[9px] font-bold text-slate-400 mt-0.5 sm:hidden truncate">{tx.category?.name}</span>
                       </div>
                     </td>
                     
