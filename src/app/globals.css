@@ -59,8 +59,8 @@ body {
   display: block;
   width: 100%;
   height: 2.75rem; /* 44px for perfect touch and desktop alignment */
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
   padding-left: 1rem;
   padding-right: 1rem;
   background-color: #f8fafc; /* slate-50 */
@@ -72,7 +72,7 @@ body {
   -webkit-appearance: none;
   box-sizing: border-box;
   transition: all 0.15s ease-in-out;
-  line-height: 1.5; /* Better vertical text alignment */
+  line-height: 2.625rem !important; /* EXACT centering for 44px height (44 - 2px border) */
 }
 
 .premium-input:focus {
@@ -100,13 +100,11 @@ input[type="date"].premium-input {
 /* Safari/iOS fix for date input vertical alignment */
 input[type="date"].premium-input::-webkit-datetime-edit,
 input[type="date"].premium-input::-webkit-datetime-edit-fields-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
+  display: block;
   height: 100%;
   padding: 0;
   margin: 0;
-  line-height: 1.5;
+  line-height: 2.625rem !important; /* Force inherit exact line-height */
 }
 
 input[type="date"].premium-input::-webkit-calendar-picker-indicator {
@@ -127,11 +125,11 @@ input[type="date"].premium-input::-webkit-calendar-picker-indicator:hover {
   display: block;
   width: 100%;
   height: 2.75rem; /* 44px */
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
   padding-left: 1rem;
   padding-right: 2.5rem;
-  line-height: 1.5;
+  line-height: 2.625rem !important; /* EXACT centering for 44px height */
   background-color: #f8fafc; /* slate-50 */
   border: 1px solid #cbd5e1; /* slate-300 */
   border-radius: 0.75rem; /* rounded-xl */
