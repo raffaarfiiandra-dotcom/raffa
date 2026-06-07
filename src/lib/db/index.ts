@@ -44,16 +44,37 @@ const defaultSettings: Settings = {
   notifications_enabled: true,
 };
 
+// Polyfill for crypto.randomUUID for older iOS Safari (pre 15.4)
+const generateId = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
 // Helper for local storage
 const getLocalData = <T>(key: string, defaultValue: T): T => {
   if (typeof window === 'undefined') return defaultValue;
-  const data = localStorage.getItem(`wm_${key}`);
-  return data ? JSON.parse(data) : defaultValue;
+  try {
+    const data = window.localStorage.getItem(`wm_${key}`);
+    return data ? JSON.parse(data) : defaultValue;
+  } catch (e) {
+    console.warn('LocalStorage error:', e);
+    return defaultValue;
+  }
 };
 
 const setLocalData = <T>(key: string, value: T): void => {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(`wm_${key}`, JSON.stringify(value));
+  try {
+    window.localStorage.setItem(`wm_${key}`, JSON.stringify(value));
+  } catch (e) {
+    console.warn('LocalStorage error:', e);
+  }
 };
 
 export const getSessionUser = async (): Promise<Profile | null> => {
@@ -115,7 +136,7 @@ export const authService = {
     if (users.some(u => u.email === email) || email === DEFAULT_USER_EMAIL) {
       return { success: false, error: 'Email sudah terdaftar' };
     }
-    const newId = crypto.randomUUID();
+    const newId = generateId();
     const newUser = { id: newId, email, password, full_name: fullName };
     users.push(newUser);
     setLocalData('users', users);
@@ -143,7 +164,7 @@ export const authService = {
     const mockName = `Google User #${randomId}`;
     
     const users = getLocalData<any[]>('users', []);
-    const newId = crypto.randomUUID();
+    const newId = generateId();
     const newUser = { id: newId, email: mockEmail, password: 'google-password', full_name: mockName };
     users.push(newUser);
     setLocalData('users', users);
@@ -190,7 +211,7 @@ export const categoriesService = {
     const categories = getLocalData<Category[]>('categories', defaultCategories);
     const newCategory: Category = {
       ...category,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     categories.push(newCategory);
@@ -265,7 +286,7 @@ export const transactionsService = {
     const txs = getLocalData<Transaction[]>('transactions', []);
     const newTx: Transaction = {
       ...tx,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     txs.push(newTx);
@@ -341,7 +362,7 @@ export const assetsService = {
     const assets = getLocalData<Asset[]>('assets', defaultAssets);
     const newAsset: Asset = {
       ...asset,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     assets.push(newAsset);
@@ -405,7 +426,7 @@ export const debtsService = {
     const debts = getLocalData<Debt[]>('debts', defaultDebts);
     const newDebt: Debt = {
       ...debt,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     debts.unshift(newDebt);
@@ -469,7 +490,7 @@ export const goalsService = {
     const goals = getLocalData<Goal[]>('goals', []);
     const newGoal: Goal = {
       ...goal,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     goals.push(newGoal);
@@ -524,7 +545,7 @@ export const notificationsService = {
   async create(notif: Omit<Notification, 'id' | 'created_at' | 'is_read'>): Promise<Notification> {
     const newNotif: Notification = {
       ...notif,
-      id: crypto.randomUUID(),
+      id: generateId(),
       is_read: false,
       created_at: new Date().toISOString(),
     };
@@ -647,7 +668,7 @@ export const accountsService = {
     const accounts = getLocalData<Account[]>('accounts', defaultAccounts);
     const newAccount: Account = {
       ...account,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
       balance: 0,
     };
@@ -706,7 +727,7 @@ export const transfersService = {
     const transfers = getLocalData<AccountTransfer[]>('account_transfers', []);
     const newTransfer: AccountTransfer = {
       ...transfer,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
     };
     transfers.push(newTransfer);
@@ -768,7 +789,7 @@ export const netWorthService = {
         history[index].net_worth = netWorth;
       } else {
         history.push({
-          id: crypto.randomUUID(),
+          id: generateId(),
           user_id: userId,
           date: today,
           net_worth: netWorth
@@ -808,7 +829,7 @@ export const recurringTransactionsService = {
     const all = getLocalData<RecurringTransaction[]>('recurring_transactions', []);
     const newRec: RecurringTransaction = {
       ...rec,
-      id: crypto.randomUUID(),
+      id: generateId(),
       user_id: userId,
       created_at: new Date().toISOString()
     };
