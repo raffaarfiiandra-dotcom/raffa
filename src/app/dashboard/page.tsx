@@ -179,9 +179,9 @@ export default function DashboardPage() {
             </span>
           </div>
           
-          <div className="space-y-1 z-10 mt-auto">
-            <span className="text-[11px] font-bold text-indigo-200 uppercase tracking-wider">Total Saldo</span>
-            <h3 className="text-2xl font-bold">
+          <div className="space-y-1 z-10 mt-auto min-w-0">
+            <span className="text-[11px] font-bold text-indigo-200 uppercase tracking-wider block truncate">Total Saldo</span>
+            <h3 className="text-2xl font-bold truncate" title={`Rp ${totalAccounts.toLocaleString('id-ID')}`}>
               Rp {totalAccounts.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -202,9 +202,9 @@ export default function DashboardPage() {
               Bulan Ini
             </span>
           </div>
-          <div className="space-y-1 mt-auto">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pemasukan</span>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Pemasukan</span>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalIncome.toLocaleString('id-ID')}`}>
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -221,9 +221,9 @@ export default function DashboardPage() {
               Terkumpul
             </span>
           </div>
-          <div className="space-y-1 mt-auto">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Pengeluaran</span>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Pengeluaran</span>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalExpense.toLocaleString('id-ID')}`}>
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -374,21 +374,21 @@ export default function DashboardPage() {
             ) : (
               recentTransactions.map((tx) => (
                 <div key={tx.id} className="flex items-center justify-between py-3.5 first:pt-0 last:pb-0">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
                     <div 
                       style={{ backgroundColor: `${tx.category?.color || '#cbd5e1'}20`, color: tx.category?.color || '#64748b' }}
                       className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                     >
                       <LucideIcon name={tx.category?.icon || 'HelpCircle'} size={18} />
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-xs text-slate-800 leading-snug">{tx.description || tx.category?.name}</h4>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-semibold text-xs text-slate-800 leading-snug truncate">{tx.description || tx.category?.name}</h4>
                       <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-slate-400 whitespace-nowrap">
                           {new Date(tx.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </span>
-                        <span className="w-1 h-1 bg-slate-300 rounded-full" />
-                        <span className="text-[9px] font-bold text-slate-400 tracking-wide uppercase">{tx.category?.name}</span>
+                        <span className="w-1 h-1 bg-slate-300 rounded-full shrink-0" />
+                        <span className="text-[9px] font-bold text-slate-400 tracking-wide uppercase truncate">{tx.category?.name}</span>
                       </div>
                     </div>
                   </div>

@@ -186,7 +186,7 @@ export default function DebtsReceivablesPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Hutang */}
         <div className="premium-card p-6 bg-white border-slate-200/80 flex flex-col justify-between">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className="p-3.5 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center">
               <LucideIcon name="ArrowDown" size={24} />
             </div>
@@ -194,9 +194,9 @@ export default function DebtsReceivablesPage() {
               Kewajiban
             </span>
           </div>
-          <div className="space-y-1">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Hutang</p>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Hutang</p>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalDebt.toLocaleString('id-ID')}`}>
               Rp {totalDebt.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -204,7 +204,7 @@ export default function DebtsReceivablesPage() {
 
         {/* Total Piutang */}
         <div className="premium-card p-6 bg-white border-slate-200/80 flex flex-col justify-between">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className="p-3.5 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
               <LucideIcon name="ArrowUp" size={24} />
             </div>
@@ -212,9 +212,9 @@ export default function DebtsReceivablesPage() {
               Aset Berjalan
             </span>
           </div>
-          <div className="space-y-1">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Piutang</p>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Piutang</p>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalReceivable.toLocaleString('id-ID')}`}>
               Rp {totalReceivable.toLocaleString('id-ID')}
             </h3>
           </div>
@@ -222,7 +222,7 @@ export default function DebtsReceivablesPage() {
 
         {/* Selisih Bersih */}
         <div className="premium-card p-6 bg-gradient-to-br from-indigo-50/50 to-indigo-100/30 border-indigo-200/80 flex flex-col justify-between">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className={`p-3.5 rounded-2xl flex items-center justify-center ${netDiff >= 0 ? 'bg-indigo-100 text-indigo-600' : 'bg-rose-100 text-rose-600'}`}>
               <LucideIcon name="Scale" size={24} />
             </div>
@@ -231,9 +231,9 @@ export default function DebtsReceivablesPage() {
               {netDiff >= 0 ? 'Posisi Positif' : 'Posisi Negatif'}
             </span>
           </div>
-          <div className="space-y-1">
-            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider">Selisih Bersih</p>
-            <h3 className="text-2xl font-bold text-indigo-950">
+          <div className="space-y-1 min-w-0">
+            <p className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider block truncate">Selisih Bersih</p>
+            <h3 className="text-2xl font-bold text-indigo-950 truncate" title={`Rp ${netDiff.toLocaleString('id-ID')}`}>
               Rp {netDiff.toLocaleString('id-ID')}
             </h3>
           </div>

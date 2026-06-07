@@ -111,7 +111,7 @@ export default function AccountsPage() {
 
         {accounts.map(acc => (
           <div key={acc.id} className="premium-card p-6 bg-white flex flex-col justify-between group">
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
               <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
                 <LucideIcon name={acc.icon} size={24} />
               </div>

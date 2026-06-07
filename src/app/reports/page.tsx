@@ -301,7 +301,7 @@ export default function ReportsPage() {
       {/* 3 Metric Card summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
               <LucideIcon name="ArrowDownLeft" size={22} />
             </div>
@@ -309,16 +309,16 @@ export default function ReportsPage() {
               Pemasukan
             </span>
           </div>
-          <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Periode Ini</span>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block truncate">Periode Ini</span>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalIncome.toLocaleString('id-ID')}`}>
               Rp {totalIncome.toLocaleString('id-ID')}
             </h3>
           </div>
         </div>
 
         <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className="p-3 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center">
               <LucideIcon name="ArrowUpRight" size={22} />
             </div>
@@ -326,16 +326,16 @@ export default function ReportsPage() {
               Pengeluaran
             </span>
           </div>
-          <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Periode Ini</span>
-            <h3 className="text-2xl font-bold text-slate-800">
+          <div className="space-y-1 mt-auto min-w-0">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block truncate">Periode Ini</span>
+            <h3 className="text-2xl font-bold text-slate-800 truncate" title={`Rp ${totalExpense.toLocaleString('id-ID')}`}>
               Rp {totalExpense.toLocaleString('id-ID')}
             </h3>
           </div>
         </div>
 
         <div className="premium-card p-6 bg-white flex flex-col justify-between border-slate-200/80">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex flex-wrap items-start justify-between mb-4 gap-2">
             <div className={`p-3 rounded-xl flex items-center justify-center ${cashflow >= 0 ? 'bg-indigo-100 text-indigo-700' : 'bg-rose-100 text-rose-700'}`}>
               <LucideIcon name={cashflow >= 0 ? 'TrendingUp' : 'TrendingDown'} size={22} />
             </div>
@@ -343,10 +343,10 @@ export default function ReportsPage() {
               {cashflow >= 0 ? 'Surplus' : 'Defisit'}
             </span>
           </div>
-          <div className="space-y-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Arus Kas Bersih</span>
-            <h3 className="text-2xl font-bold text-slate-800">
-              Rp {cashflow.toLocaleString('id-ID')}
+          <div className="space-y-1 mt-auto min-w-0">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block truncate">Arus Kas Bersih</span>
+            <h3 className={`text-2xl font-bold truncate ${cashflow >= 0 ? 'text-indigo-950' : 'text-rose-950'}`} title={`${cashflow < 0 ? '-' : ''}Rp ${Math.abs(cashflow).toLocaleString('id-ID')}`}>
+              {cashflow < 0 ? '-' : ''}Rp {Math.abs(cashflow).toLocaleString('id-ID')}
             </h3>
           </div>
         </div>
